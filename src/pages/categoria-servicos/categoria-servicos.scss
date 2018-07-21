@@ -1,0 +1,18 @@
+page-categoria-servicos {
+    .content{
+        .item{
+            & ion-avatar{
+                & img{
+                    width: 120px;
+                    height: 120px;
+                }
+            }
+
+            h2{
+                color: #333;
+                font-weight: bold;
+            }
+        }   
+    }
+
+}

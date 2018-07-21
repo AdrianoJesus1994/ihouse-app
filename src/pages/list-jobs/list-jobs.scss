@@ -1,0 +1,26 @@
+page-list-jobs {
+
+    ion-card {
+        position: relative;
+        text-align: center;
+      }
+    
+      .card-title {
+        position: absolute;
+        top: 36%;
+        font-size: 2.0em;
+        width: 100%;
+        font-weight: bold;
+        color: rgb(99, 99, 99);
+        //text-shadow: 1px 1px 7px rgba(150, 150, 150, 1);
+      }
+    
+      .card-subtitle {
+        font-size: 1.0em;
+        position: absolute;
+        top: 52%;
+        width: 100%;
+        color: rgb(99, 99, 99);
+      }
+
+}

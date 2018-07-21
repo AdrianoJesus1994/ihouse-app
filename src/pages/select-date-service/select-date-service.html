@@ -1,0 +1,35 @@
+<!--
+  Generated template for the SelectDateServicePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Set Date</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+
+  <h3 padding>When do you want us to come?</h3>
+
+  <ion-item padding>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="dateSeleced"></ion-datetime>
+  </ion-item>
+
+  <ion-item padding>
+    <ion-label>Start Time</ion-label>
+    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="horaSelected"></ion-datetime>
+  </ion-item>
+
+  <br>
+  
+  <button ion-button icon-end color="verde" block large (click)="onNext()">
+    Next
+    <ion-icon name="ios-arrow-forward"></ion-icon>
+  </button>
+
+</ion-content>
