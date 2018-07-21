@@ -16,6 +16,8 @@
 // automatically applied to the <body> element in the app.
 
 .toolbar{
+
+    
     
     .toolbar-background{
         background-color: color($colors, verde);
@@ -39,6 +41,14 @@
 
 .content.menu{
     background-color: color($colors, verde);
+
+    img{
+        margin-top: 15px;
+    }
+
+    .logout{
+        margin-left: 5px !important;
+    }
 
     .list{
         background-color: transparent;

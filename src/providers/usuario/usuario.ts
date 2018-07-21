@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ERROR_COLLECTOR_TOKEN } from '@angular/platform-browser-dynamic/src/compiler_factory';
+import { Injectable } from '@angular/core'
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -62,6 +61,9 @@ export class UsuarioProvider {
     }
   }
 
+  logout(){
+    this.usuarioLogado = null;
+  }
 
 
 }

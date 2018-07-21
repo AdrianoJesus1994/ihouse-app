@@ -6,7 +6,8 @@ page-home {
     
             .body{
                 background-color: #fff;
-                height: 90%;
+                min-height: 90%;
+                height: auto;
                 .item{
                     background: transparent;
                 }

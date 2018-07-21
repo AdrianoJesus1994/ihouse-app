@@ -1,8 +1,28 @@
 page-list-jobs {
+    .content{
+      background-color: color($colors, verde);
+                
+            .body{
+                //background-color: #fff;
+                min-height: 90%;
+                height: auto;
+                .item{
+                    background: transparent;
+                }
+
+            }
+    }
 
     ion-card {
         position: relative;
         text-align: center;
+
+        
+      }
+      
+      .fab-md{
+        background-color: transparent;
+        padding: 0;
       }
     
       .card-title {
@@ -11,8 +31,8 @@ page-list-jobs {
         font-size: 2.0em;
         width: 100%;
         font-weight: bold;
-        color: rgb(99, 99, 99);
-        //text-shadow: 1px 1px 7px rgba(150, 150, 150, 1);
+        color: rgb(255, 255, 255);
+        text-shadow: 1px 1px 7px rgb(70, 70, 70);
       }
     
       .card-subtitle {
@@ -20,7 +40,8 @@ page-list-jobs {
         position: absolute;
         top: 52%;
         width: 100%;
-        color: rgb(99, 99, 99);
+        color: rgb(255, 255, 255);
+        text-shadow: 1px 1px 7px rgb(70, 70, 70);
       }
 
 }

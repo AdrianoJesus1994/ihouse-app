@@ -7,29 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Search Jobs</ion-title>
+    <!-- <ion-title>Search Jobs</ion-title> -->
+    <img src="assets/imgs/ihouse_logo.png" width="50%" alt="">
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding padding-left padding-right>
 
+  <div class="body" padding-left>
     <ion-list>
-        <ion-grid no-padding>
-            <ion-row no-padding>
-              <div no-padding col-6 *ngFor="let cat of categorias">
-                <button ion-item no-padding no-lines (click)="onSelectCategory(cat)" >
-                  <div align="center">
-                    <div class="image" >
-                      <img [src]="cat.img" alt="">
-                    </div>
-                    <h2>{{cat.categoria}}</h2>
-                  </div>    
-                </button>
-              </div>
-            </ion-row>
-        </ion-grid>
-      </ion-list>
+      <ion-grid no-padding>
+          <ion-row no-padding>
+            <div no-padding col-6 *ngFor="let cat of categorias">
+              <button ion-item no-padding no-lines (click)="onSelectCategory(cat)" >
+                <div align="center">
+                  <div class="image" >
+                    <img [src]="cat.img" alt="">
+                  </div>
+                  <h2>{{cat.categoria}}</h2>
+                </div>    
+              </button>
+            </div>
+          </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+  
 
 </ion-content>
