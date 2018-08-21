@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
+import { PaypalProvider } from '../providers/paypal/paypal';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     MensagensProvider,
     ServicosProvider,
     ScreenOrientation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PaypalProvider
   ]
 })
 export class AppModule {}
