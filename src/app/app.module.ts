@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { PaypalProvider } from '../providers/paypal/paypal';
+import { FirebaseProvider } from '../providers/firebase/firebase';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PaypalProvider } from '../providers/paypal/paypal';
     ServicosProvider,
     ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PaypalProvider
+    PaypalProvider,
+    FirebaseProvider
   ]
 })
 export class AppModule {}
