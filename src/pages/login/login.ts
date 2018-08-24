@@ -17,7 +17,7 @@ export class LoginPage {
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private dialogo: DialogoProvider, 
+    private dialogo: DialogoProvider,
     private auth: AngularFireAuth
   ) { }
 
@@ -39,10 +39,35 @@ export class LoginPage {
       });
   }
 
-
   onSingIn() {
     console.log("Cadastrar novo usuário.");
     this.navCtrl.push('CadastroClientePage');
+  }
+
+  onForgot() {
+    var alert = this.alertCtrl.create({
+      message: "Type your e-mail:",
+      inputs: [{
+        name: 'email',
+        placeholder: 'E-mail'
+      }],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Send',
+        handler: data => {
+          if (data.email) {
+            this.auth.auth.sendPasswordResetEmail(data.email);
+          }
+        }
+      }]
+    });
+    alert.present();
   }
 
 }

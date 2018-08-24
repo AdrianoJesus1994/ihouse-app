@@ -1,41 +1,36 @@
 page-login {
-
-
-    .content{
+    .content {
         background-color: color($colors, verde);
-
-        .body{
+        .body {
             height: 34em;
             background-color: transparent;
-            
             color: #f6f6f6;
-    
-            .item{
+            .item {
                 background: transparent;
             }
-    
-            .input{
+            .input {
                 border: solid 2px #f6f6f6;
                 background-color: #fff;
                 border-radius: 2em;
                 text-align: center;
-    
-                .text-input{
-                    text-align: center; 
+                .text-input {
+                    text-align: center;
                 }
             }
         }
-
-        .buttons-footer{
+        .buttons-footer {
             width: 100%;
             color: #fff;
             background-color: transparent;
-
-            .button{
+            .button {
                 border: 0;
                 color: #fff;
             }
         }
     }
-
+    // .bloco-logo .row {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
 }
