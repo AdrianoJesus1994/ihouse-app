@@ -17,7 +17,7 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { PaypalProvider } from '../providers/paypal/paypal';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
 
 @NgModule({
@@ -47,7 +47,8 @@ import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PaypalProvider,
     FirebaseProvider,
-    AngularFireAuth
+    AngularFireAuth,
+    AngularFireDatabase
   ]
 })
 export class AppModule {}

@@ -1,5 +1,8 @@
+import { Job } from './../../interfaces/job';
+import { Category } from './../../interfaces/category';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /*
   Generated class for the ServicosProvider provider.
@@ -10,20 +13,20 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ServicosProvider {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private db: AngularFireDatabase) {
     console.log('Hello ServicosProvider Provider');
   }
 
-  getListServices():Promise<any>{
-    return this.http.get<any>("assets/mock/mockServicos.json").toPromise();
+  getListServices(): Promise<Job[]> {
+    return this.db.list<Job>("/jobs").valueChanges().toPromise();
   }
 
-  getListMyJobs():Promise<any>{
-    return this.http.get<any>("assets/mock/mockMyJobs.json").toPromise();
+  getListMyJobs(): Promise<Job[]> {
+    return this.db.list<Job>("/cat_jobs").valueChanges().toPromise();
   }
 
-  getListCategoreServices():Promise<any>{
-    return this.http.get<any>("assets/mock/mockCategorias.json").toPromise();
+  getListCategoreServices(): Promise<Category[]> {
+    return this.db.list<Category>("/cat_jobs").valueChanges().toPromise();
   }
 
 }

@@ -2,7 +2,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the CadastroClientePage page.
@@ -30,7 +30,7 @@ export class CadastroClientePage {
   constructor(
     public navCtrl: NavController,
     public dialogo: DialogoProvider,
-    private usuarioProvider: UsuarioProvider,
+    private alertCtrl: AlertController,
     private auth: AngularFireAuth
   ) { }
 
@@ -40,12 +40,14 @@ export class CadastroClientePage {
 
   onRegister() {
     let me = this;
-    console.log(this.usuario);
     if (this.usuario.senha !== this.usuario.confirmSenha) {
       this.dialogo.presentAlert("As senhas não conferem");
     } else {
+      let alert = this.alertCtrl.create();
+      alert.present();
       this.auth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha)
         .then((res) => {
+          alert.dismiss();
           console.log(res);
           if (res) {
             me.dialogo.presentAlert("Cadastro realizado com sucesso!");
@@ -54,6 +56,7 @@ export class CadastroClientePage {
             me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
           }
         }).catch((error) => {
+          alert.dismiss();
           me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
           console.error(error);
         })
