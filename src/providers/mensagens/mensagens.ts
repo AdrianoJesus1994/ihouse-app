@@ -1,3 +1,5 @@
+import { Message } from './../../interfaces/message';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -10,12 +12,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MensagensProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private db: AngularFireDatabase) {
     console.log('Hello MensagensProvider Provider');
   }
 
-  getListMensagens():Promise<any>{
-    return this.http.get("assets/mock/mockMensagens.json").toPromise();
+  getListMensagens(): Promise<Message[]> {
+    return this.db.list<Message>("/message").valueChanges().toPromise();
   }
 
 }
