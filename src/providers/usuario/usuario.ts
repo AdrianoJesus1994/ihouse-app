@@ -21,8 +21,7 @@ export class UsuarioProvider {
 
   cadastrarUsuarioCliente(usuario:any):Promise<object>{
     if(!this.mock){
-      return this.http.post(this.path, 
-        {
+      return this.http.post(this.path, {
           nome: usuario.nome,
           email: usuario.email,
           telefone: usuario.tel,  
