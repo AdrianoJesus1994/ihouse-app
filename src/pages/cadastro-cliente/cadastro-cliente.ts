@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
@@ -26,31 +27,36 @@ export class CadastroClientePage {
     confirmSenha: ""
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dialogo: DialogoProvider, private usuarioProvider:UsuarioProvider) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public dialogo: DialogoProvider,
+    private usuarioProvider: UsuarioProvider,
+    private auth: AngularFireAuth
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroClientePage');
   }
 
-  onRegister(){
+  onRegister() {
     let me = this;
     console.log(this.usuario);
-    if(this.usuario.senha !== this.usuario.confirmSenha){
+    if (this.usuario.senha !== this.usuario.confirmSenha) {
       this.dialogo.presentAlert("As senhas não conferem");
-    }else{
-      this.usuarioProvider.cadastrarUsuarioCliente(this.usuario).then((res)=>{
-        console.log(res);
-        if(res){
-          me.dialogo.presentAlert("Cadastro realizado com sucesso!");
-          me.navCtrl.pop();
-        }else{
+    } else {
+      this.auth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha)
+        .then((res) => {
+          console.log(res);
+          if (res) {
+            me.dialogo.presentAlert("Cadastro realizado com sucesso!");
+            me.navCtrl.pop();
+          } else {
+            me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
+          }
+        }).catch((error) => {
           me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
-        }
-      }).catch((error)=>{
-        me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
-        console.error(error);
-      })
+          console.error(error);
+        })
     }
   }
 

@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { LoginPageModule } from './../pages/login/login.module';
 import { ServicosProvider } from './../providers/servicos/servicos';
@@ -45,7 +46,8 @@ import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
     ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PaypalProvider,
-    FirebaseProvider
+    FirebaseProvider,
+    AngularFireAuth
   ]
 })
 export class AppModule {}

@@ -1,14 +1,7 @@
-import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -21,36 +14,33 @@ export class LoginPage {
   public senha: string = "";
   public zipCode: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialogo: DialogoProvider, private usuarioProvider:UsuarioProvider) {
-  }
+  constructor(
+    private navCtrl: NavController,
+    private alertCtrl: AlertController,
+    private dialogo: DialogoProvider, 
+    private auth: AngularFireAuth
+  ) { }
 
-  ionViewDidLoad() {
+  ionViewDidLoad(): void {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  onLogin(){
-    console.log("senha: ", this.senha, "email: ", this.email);
-    if(this.email !== "" && this.senha !== ""){
-      this.usuarioProvider.loginUsuario(
-        {
-          email: this.email.toLocaleLowerCase(),
-	        senha: this.senha.toLocaleLowerCase()
-        }
-      ).then((res)=>{
-        console.log(res);
-        if(res){
-          this.navCtrl.setRoot('HomePage');        
-        }else{
-          this.dialogo.presentAlert("Usuário ou senha inválidos.");
-        }        
+  onLogin(): void {
+    let alert = this.alertCtrl.create();
+    alert.present();
+    this.auth.auth.signInWithEmailAndPassword(this.email, this.senha)
+      .then((res) => {
+        alert.dismiss();
+        this.navCtrl.setRoot('HomePage');
+      })
+      .catch((err) => {
+        alert.dismiss();
+        this.dialogo.presentAlert("Informe o Login e Senha para acessar.");
       });
-    }else{
-      this.dialogo.presentAlert("Informe o Login e Senha para acessar.")
-    }
   }
-    
 
-  onSingIn(){ 
+
+  onSingIn() {
     console.log("Cadastrar novo usuário.");
     this.navCtrl.push('CadastroClientePage');
   }
