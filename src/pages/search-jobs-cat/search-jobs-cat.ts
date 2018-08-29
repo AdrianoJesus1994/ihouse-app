@@ -19,27 +19,25 @@ export class SearchJobsCatPage {
 
   categorias: any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialogo:DialogoProvider, private servicoProvider:ServicosProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dialogo: DialogoProvider, private servicoProvider: ServicosProvider) {
   }
 
-  ionViewCanEnter(){
-   this.servicoProvider.getListCategoreServices().then(res=>{
-     if(res){
-       this.categorias = res
-     }else{
-      this.dialogo.presentAlert("Loading Faield");
-     }
-   }).catch(err=>{
-     console.log(err);
-   });
-  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchJobsCatPage');
+    this.servicoProvider.getListCategoreServices().subscribe(res => {
+      if (res) {
+        console.log(res);
+        this.categorias = res
+      } else {
+        this.dialogo.presentAlert("Loading Faield");
+      }
+    },err => {
+      console.log(err);
+    });
   }
 
-  onSelectCategory(cat:any){
-    this.navCtrl.push('ListJobsPage', {data: cat});
+  onSelectCategory(cat: any) {
+    this.navCtrl.push('ListJobsPage', { data: cat });
   }
 
 }

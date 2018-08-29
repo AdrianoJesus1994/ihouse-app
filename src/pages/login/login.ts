@@ -1,7 +1,9 @@
+import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,7 +20,9 @@ export class LoginPage {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private dialogo: DialogoProvider,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private db: AngularFireDatabase,
+    private storage: Storage
   ) { }
 
   ionViewDidLoad(): void {
@@ -26,12 +30,18 @@ export class LoginPage {
   }
 
   onLogin(): void {
+    var me = this;
     let alert = this.alertCtrl.create();
     alert.present();
     this.auth.auth.signInWithEmailAndPassword(this.email, this.senha)
       .then((res) => {
-        alert.dismiss();
-        this.navCtrl.setRoot('HomePage');
+        return this.db.list("/user").valueChanges().subscribe((res) => {
+          let user = res.filter((el) => { return el.email == me.email })[0];
+          this.storage.set("USER", user);
+          alert.dismiss();
+          this.navCtrl.setRoot('HomePage');
+        })
+
       })
       .catch((err) => {
         alert.dismiss();

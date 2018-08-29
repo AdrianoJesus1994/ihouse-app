@@ -2,6 +2,8 @@ import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { MensagensProvider } from '../../providers/mensagens/mensagens';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Message } from '../../interfaces/message';
+import { AngularFireDatabase } from '../../../node_modules/angularfire2/database';
 
 /**
  * Generated class for the MensagensPage page.
@@ -17,9 +19,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MensagensPage {
 
-  mensagens: any[];
+  mensagens: Message[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialogo:DialogoProvider, private mensageProvider: MensagensProvider) {
+  constructor(private db: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, private dialogo:DialogoProvider, private mensageProvider: MensagensProvider) {
   }
 
   ionViewDidLoad() {
@@ -28,16 +30,12 @@ export class MensagensPage {
   }
 
   _onLoadMensagens(){
-    this.mensageProvider.getListMensagens().then(res =>{
-      console.log(res);
-      if(res){
+    this.mensageProvider.getListMensagens().subscribe((res) => {
+      if(res.length > 0) {
         this.mensagens = res;
-      }else{
-        this.dialogo.presentAlert("Falha ao carregar as suas mensagens");
       }
-    }).catch(err =>{
-      console.log(err);
-      this.dialogo.presentAlert("Falha ao carregar as suas mensagens");
+    }, err => {
+      // TODO
     });
   }
 

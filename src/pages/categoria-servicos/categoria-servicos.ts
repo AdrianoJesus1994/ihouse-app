@@ -19,21 +19,7 @@ export class CategoriaServicosPage {
 
   categorias: any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialogo:DialogoProvider, private servicoProvider:ServicosProvider) {
-  }
-
-  ionViewCanEnter(){
-    return this.servicoProvider.getListCategoreServices().then(res=>{
-      if(res){
-        this.categorias = res;
-        return true;
-      }else{
-        this.dialogo.presentAlert("Ocorreu um erro ao listar as categoria");
-        return false;
-      }
-    }).catch(err=>{
-      console.log(err);
-    })
+  constructor(public navCtrl: NavController, private dialogo:DialogoProvider, private servicoProvider:ServicosProvider) {
   }
 
   onSelectCategory(cat:any){
@@ -42,7 +28,15 @@ export class CategoriaServicosPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriaServicosPage');
+    this.servicoProvider.getListCategoreServices().subscribe(res=>{
+      if(res){
+        this.categorias = res;
+      }else{
+        this.dialogo.presentAlert("Ocorreu um erro ao listar as categoria");
+      }
+    }, err=>{
+      console.log(err);
+    })
   }
 
 }

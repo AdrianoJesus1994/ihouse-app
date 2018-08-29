@@ -33,14 +33,14 @@ export class MyjobsPage {
   }
 
   _onLoadListServices(){
-    this.servicoProvider.getListMyJobs().then(res=>{
+    this.servicoProvider.getListMyJobs().subscribe(res=>{
       if(res){
         this.myJobs = res;
       }else{
         console.log(res);
         
       }
-    }).catch(err=>{
+    },err=>{
       console.log(err);
       this.dialog.presentAlert("Ocorreu um erro ao carregar os seus trabalhos")
     });

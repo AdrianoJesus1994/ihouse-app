@@ -2,7 +2,8 @@ import { Job } from './../../interfaces/job';
 import { Category } from './../../interfaces/category';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireAction, DatabaseSnapshot } from 'angularfire2/database';
+import { Observable } from '../../../node_modules/rxjs';
 
 /*
   Generated class for the ServicosProvider provider.
@@ -17,16 +18,16 @@ export class ServicosProvider {
     console.log('Hello ServicosProvider Provider');
   }
 
-  getListServices(): Promise<Job[]> {
-    return this.db.list<Job>("/jobs").valueChanges().toPromise();
+  getListServices(): Observable<Job[]> {
+    return this.db.list<Job>("/jobs").valueChanges();
   }
 
-  getListMyJobs(): Promise<Job[]> {
-    return this.db.list<Job>("/cat_jobs").valueChanges().toPromise();
+  getListMyJobs(): Observable<Job[]> {
+    return this.db.list<Job>("/cat_jobs").valueChanges();
   }
 
-  getListCategoreServices(): Promise<Category[]> {
-    return this.db.list<Category>("/cat_jobs").valueChanges().toPromise();
+  getListCategoreServices(): Observable<Category[]> {
+    return this.db.list<Category>("/cat_jobs").valueChanges();
   }
 
 }

@@ -2,6 +2,7 @@ import { Message } from './../../interfaces/message';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from '../../../node_modules/rxjs';
 
 /*
   Generated class for the MensagensProvider provider.
@@ -16,8 +17,8 @@ export class MensagensProvider {
     console.log('Hello MensagensProvider Provider');
   }
 
-  getListMensagens(): Promise<Message[]> {
-    return this.db.list<Message>("/message").valueChanges().toPromise();
+  getListMensagens(): Observable<Message[]> {
+    return this.db.list<Message>("/message").valueChanges();
   }
 
 }

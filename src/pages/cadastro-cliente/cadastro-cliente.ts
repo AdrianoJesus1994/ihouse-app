@@ -1,5 +1,6 @@
+import { Camera, CameraOptions } from 'ionic-native';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -11,6 +12,13 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
  * Ionic pages and navigation.
  */
 
+const options: CameraOptions = {
+  quality: 100,
+  destinationType: Camera.DestinationType.FILE_URI,
+  encodingType: Camera.EncodingType.JPEG,
+  mediaType: Camera.MediaType.PICTURE
+}
+
 @IonicPage()
 @Component({
   selector: 'page-cadastro-cliente',
@@ -21,6 +29,7 @@ export class CadastroClientePage {
   public usuario = {
     nome: "",
     email: "",
+    photo: "",
     endereco: "",
     tel: "",
     senha: "",
@@ -31,7 +40,8 @@ export class CadastroClientePage {
     public navCtrl: NavController,
     public dialogo: DialogoProvider,
     private alertCtrl: AlertController,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private db: AngularFireDatabase
   ) { }
 
   ionViewDidLoad() {
@@ -50,8 +60,9 @@ export class CadastroClientePage {
           alert.dismiss();
           console.log(res);
           if (res) {
-            me.dialogo.presentAlert("Cadastro realizado com sucesso!");
-            me.navCtrl.pop();
+            me.createUser();
+            // me.dialogo.presentAlert("Cadastro realizado com sucesso!");
+            // me.navCtrl.pop();
           } else {
             me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
           }
@@ -62,5 +73,14 @@ export class CadastroClientePage {
         })
     }
   }
-
+  private createUser(): void {
+    this.db.list("user").push(this.usuario);
+  }
+  openCamera(): void {
+    Camera.getPicture(options).then((imageData) => {
+      this.usuario.photo = 'data:image/jpeg;base64,' + imageData;
+     }, (err) => {
+      // Handle error
+     });
+  }
 }
