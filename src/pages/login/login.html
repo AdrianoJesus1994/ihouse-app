@@ -17,48 +17,31 @@
   <ion-item class="body" no-lines>
     <div class="bloco-logo" padding>
       <ion-row>
-        <ion-col col-8 offset-2>
-            <img src="assets/imgs/splash_logo.png" whi alt="">
+        <ion-col col-8>
+          <img src="assets/imgs/splash_logo.png" whi alt="">
         </ion-col>
       </ion-row>
     </div>
-  
     <div class="main-container" padding>
-      <ion-row padding>
-        <ion-item no-lines>
-          <ion-input type="email" [(ngModel)]="email" placeholder="Email Adress"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row padding-left padding-right>
-        <ion-item no-lines>
-          <ion-input type="password" [(ngModel)]="senha" placeholder="Password"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row padding-left padding-right >
-        <ion-col col-2 offset-5 no-lines aling="center">
-          <p>Or</p>
-        </ion-col>
-      </ion-row>
-      <ion-row padding-left padding-right>
-        <ion-item no-lines>
-          <ion-input type="tel" placeholder="Zip Code" [(ngModel)]="zipCode" disabled></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-col col-10 offset-1>
-            <button ion-button round block (click)="onLogin()">Login</button>
-        </ion-col>
-      </ion-row>
+      <ion-item no-lines>
+        <ion-input type="email" [(ngModel)]="email" placeholder="Email Adress"></ion-input>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-input type="password" [(ngModel)]="senha" placeholder="Password"></ion-input>
+      </ion-item>
+      <div class="or-container">Or</div>
+      <ion-item no-lines>
+        <ion-input type="tel" placeholder="Zip Code" [(ngModel)]="zipCode" disabled></ion-input>
+      </ion-item>
+      <button ion-button round large full (click)="onLogin()">Login</button>
     </div>
   </ion-item>
-  <ion-item class="buttons-footer" no-lines>
-    <ion-col >
-      <button ion-button outline (click)="onForgot()">Forgot password?</button>
+  <ion-row class="row-buttons">
+    <ion-col>
+      <button ion-button clear (click)="onForgot()">Forgot password?</button>
     </ion-col>
-    |
-    <ion-col >
-      <button ion-button outline (click)="onSingIn()" >Register here</button>
+    <ion-col>
+      <button ion-button clear (click)="onSingIn()">Register here</button>
     </ion-col>
-  </ion-item>
-
+  </ion-row>
 </ion-content>

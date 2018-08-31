@@ -30,23 +30,7 @@ export class LoginPage {
   }
 
   onLogin(): void {
-    var me = this;
-    let alert = this.alertCtrl.create();
-    alert.present();
-    this.auth.auth.signInWithEmailAndPassword(this.email, this.senha)
-      .then((res) => {
-        return this.db.list("/user").valueChanges().subscribe((res) => {
-          let user = res.filter((el) => { return el.email == me.email })[0];
-          this.storage.set("USER", user);
-          alert.dismiss();
-          this.navCtrl.setRoot('HomePage');
-        })
-
-      })
-      .catch((err) => {
-        alert.dismiss();
-        this.dialogo.presentAlert("Informe o Login e Senha para acessar.");
-      });
+    // TODO
   }
 
   onSingIn() {
