@@ -12,7 +12,6 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { UsuarioProvider } from '../providers/usuario/usuario';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { PaypalProvider } from '../providers/paypal/paypal';
 import { FirebaseProvider } from '../providers/firebase/firebase';
@@ -20,6 +19,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { UserDataProvider } from '../providers/user-data/user-data';
 
 @NgModule({
   declarations: [
@@ -42,15 +42,15 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     DialogoProvider,
-    UsuarioProvider,
     MensagensProvider,
     ServicosProvider,
     ScreenOrientation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     PaypalProvider,
     FirebaseProvider,
     AngularFireAuth,
-    AngularFireDatabase
+    AngularFireDatabase,
+    UserDataProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

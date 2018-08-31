@@ -1,16 +1,10 @@
+import { UserDataProvider } from './../../providers/user-data/user-data';
 import { Camera, CameraOptions } from 'ionic-native';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-
-/**
- * Generated class for the CadastroClientePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 const options: CameraOptions = {
   quality: 100,
@@ -25,10 +19,12 @@ const options: CameraOptions = {
   templateUrl: 'cadastro-cliente.html',
 })
 export class CadastroClientePage {
+  type: string = "employer";
 
   public usuario = {
     nome: "",
     email: "",
+    socialSecurity: "",
     photo: "",
     endereco: "",
     tel: "",
@@ -40,6 +36,8 @@ export class CadastroClientePage {
     public navCtrl: NavController,
     public dialogo: DialogoProvider,
     private alertCtrl: AlertController,
+    private userDataProvider: UserDataProvider,
+    private loadingCtrl: LoadingController,
     private auth: AngularFireAuth,
     private db: AngularFireDatabase
   ) { }
@@ -53,21 +51,19 @@ export class CadastroClientePage {
     if (this.usuario.senha !== this.usuario.confirmSenha) {
       this.dialogo.presentAlert("As senhas não conferem");
     } else {
-      let alert = this.alertCtrl.create();
-      alert.present();
+      let loading = this.loadingCtrl.create();
+      loading.present();
       this.auth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha)
         .then((res) => {
-          alert.dismiss();
+          loading.dismiss();
           console.log(res);
           if (res) {
             me.createUser();
-            // me.dialogo.presentAlert("Cadastro realizado com sucesso!");
-            // me.navCtrl.pop();
           } else {
             me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
           }
         }).catch((error) => {
-          alert.dismiss();
+          loading.dismiss();
           me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
           console.error(error);
         })
@@ -75,12 +71,14 @@ export class CadastroClientePage {
   }
   private createUser(): void {
     this.db.list("user").push(this.usuario);
+    this.userDataProvider.setUser(this.usuario);
+    this.navCtrl.setRoot("HomePage");
   }
   openCamera(): void {
     Camera.getPicture(options).then((imageData) => {
       this.usuario.photo = 'data:image/jpeg;base64,' + imageData;
-     }, (err) => {
+    }, (err) => {
       // Handle error
-     });
+    });
   }
 }

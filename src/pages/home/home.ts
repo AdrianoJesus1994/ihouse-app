@@ -1,3 +1,4 @@
+import { UserDataProvider } from './../../providers/user-data/user-data';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
@@ -11,38 +12,38 @@ export class HomePage {
 
   public nomeUsuario: any;
   public nome;
-  
 
-  constructor(public navCtrl: NavController, private usuarioProvider:UsuarioProvider) {
-    
+
+  constructor(public navCtrl: NavController, userProvider: UserDataProvider) {
+    userProvider.getUser().then((user) => {
+      this.nome = user.nome;
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-    this.nomeUsuario = Object( this.usuarioProvider.usuarioLogado);
-    this.nome = this.nomeUsuario.nome;
   }
 
-  onMensagens(){
+  onMensagens() {
     console.log("onMensagens()");
     this.navCtrl.push('MensagensPage');
   }
 
-  onMyJobs(){
+  onMyJobs() {
     console.log("onMyJobs()");
     this.navCtrl.push('MyjobsPage');
   }
 
-  onOfferJobs(){
+  onOfferJobs() {
     this.navCtrl.push('CategoriaServicosPage');
     console.log("onOfferJobs()");
   }
 
-  onSettings(){
+  onSettings() {
     console.log("onSettings()");
   }
 
-  onSearchJobs(){
+  onSearchJobs() {
     console.log("onSearchJobs()");
     this.navCtrl.push('SearchJobsCatPage');
   }

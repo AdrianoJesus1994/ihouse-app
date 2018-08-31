@@ -1,7 +1,8 @@
+import { UserDataProvider } from './../../providers/user-data/user-data';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, LoadingController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
 
@@ -20,8 +21,10 @@ export class LoginPage {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private dialogo: DialogoProvider,
+    private loadingCtrl: LoadingController,
     private auth: AngularFireAuth,
     private db: AngularFireDatabase,
+    private userDataProvider: UserDataProvider,
     private storage: Storage
   ) { }
 
@@ -30,7 +33,25 @@ export class LoginPage {
   }
 
   onLogin(): void {
-    // TODO
+    var loading = this.loadingCtrl.create();
+    loading.present();
+    this.auth.auth.signInWithEmailAndPassword(this.email, this.senha)
+      .then((res) => {
+        this.db.list("user").valueChanges().subscribe((list: any[]) => {
+          loading.dismiss();
+          var user = list.filter((user) => {
+            return (user.email == this.email);
+          })[0];
+          this.userDataProvider.setUser(user);
+          this.navCtrl.setRoot("HomePage");
+        }, (err) => {
+          loading.dismiss();
+          this.dialogo.presentAlert(err.message);
+        });
+      }).catch((err) => {
+        loading.dismiss();
+        this.dialogo.presentAlert(err.message);
+      });
   }
 
   onSingIn() {

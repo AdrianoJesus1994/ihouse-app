@@ -1,11 +1,9 @@
-import { UsuarioProvider } from './../providers/usuario/usuario';
-
-import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController} from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {ScreenOrientation} from '@ionic-native/screen-orientation';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { UserDataProvider } from '../providers/user-data/user-data';
 
 
 @Component({
@@ -14,38 +12,38 @@ import {ScreenOrientation} from '@ionic-native/screen-orientation';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  private rootPage: string;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }> = [
+    { title: 'Home', component: 'HomePage' },
+    { title: 'Offer Job', component: 'CategoriaServicosPage' },
+    { title: 'Search Job', component: 'SearchJobsCatPage' },
+    { title: 'My Jobs', component: 'MyjobsPage' },
+    { title: 'Messages', component: 'MensagensPage' },
+    { title: 'Settings', component: 'HomePage' }
+  ];
 
-  constructor(public platform: Platform, public menuCtrl: MenuController, public statusBar: StatusBar, public splashScreen: SplashScreen, private usuario:UsuarioProvider, private screen:ScreenOrientation) {
-    this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: 'HomePage' },
-      { title: 'Offer Job', component: 'CategoriaServicosPage' },
-      { title: 'Search Job', component: 'SearchJobsCatPage' },
-      { title: 'My Jobs', component: 'MyjobsPage' },
-      { title: 'Messages', component: 'MensagensPage' },
-      { title: 'Settings', component: 'HomePage' }
-    ];
-
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
+  constructor(
+    platform: Platform, 
+    statusBar: StatusBar, 
+    splashScreen: SplashScreen,
+    screen: ScreenOrientation,
+    private userProvider: UserDataProvider) {
+    platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
+      statusBar.styleDefault();
       //this.statusBar.backgroundColorByHexString("#0abab5");
-      this.statusBar.backgroundColorByHexString('#0abab5');
-      this.splashScreen.hide();
-      if(this.platform.is('mobile')){
-        this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT);
+      statusBar.backgroundColorByHexString('#0abab5');
+      splashScreen.hide();
+      if (platform.is('mobile')) {
+        screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
-      this
+      userProvider.getUser().then((user) => {
+        this.rootPage = (!!user) ? "HomePage" : "LoginPage";
+      })
     });
+
   }
 
   openPage(page) {
@@ -54,9 +52,7 @@ export class MyApp {
     this.nav.push(page.component);
   }
 
-  onLogout(){
-    this.menuCtrl.close();
-    this.usuario.logout();
+  onLogout() {
     this.nav.setRoot('LoginPage');
   }
 }
