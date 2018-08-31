@@ -1,5 +1,4 @@
 import { UserDataProvider } from './../../providers/user-data/user-data';
-import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 
