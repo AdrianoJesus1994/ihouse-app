@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Category } from '../../interfaces/category';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -9,5 +8,8 @@ export class DatabaseProvider {
 
   getListCategoreServices<T>(): Observable<T[]> {
     return this.db.list<T>("cat_jobs").valueChanges();
+  }
+  createUser<T>(path: string, user: T): void {
+    this.db.list<T>(path).push(user);
   }
 }

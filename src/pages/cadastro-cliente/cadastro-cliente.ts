@@ -1,10 +1,11 @@
 import { UserDataProvider } from './../../providers/user-data/user-data';
 import { Camera, CameraOptions } from 'ionic-native';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { DatabaseProvider } from '../../providers/database/database';
+import { User } from '../../interfaces/user';
 
 const options: CameraOptions = {
   quality: 100,
@@ -39,7 +40,7 @@ export class CadastroClientePage {
     private userDataProvider: UserDataProvider,
     private loadingCtrl: LoadingController,
     private auth: AuthProvider,
-    private db: AngularFireDatabase
+    private db: DatabaseProvider
   ) { }
 
   ionViewDidLoad() {
@@ -58,7 +59,7 @@ export class CadastroClientePage {
           loading.dismiss();
           console.log(res);
           if (res) {
-            me.createUser();
+            me.createUser(res.user.uid);
           } else {
             me.dialogo.presentAlert("Problemas ao realizar o seu cadastro");
           }
@@ -69,9 +70,16 @@ export class CadastroClientePage {
         })
     }
   }
-  private createUser(): void {
-    this.auth.updateProfile(this.usuario.nome, this.usuario.photo).then(() => {
+  private createUser(id: string): void {
+    const filePath = `users/${id}.png`;
+    if (this.usuario.photo) this.auth.uploadPhoto(filePath, this.usuario.photo);
+    this.auth.updateProfile(this.usuario.nome, filePath).then(() => {
       this.navCtrl.setRoot("HomePage");
+    });
+    this.db.createUser<User>(`${this.type}/${id}`, {
+      name: this.usuario.nome,
+      phone: this.usuario.tel,
+      socialSecurity: this.usuario.socialSecurity
     });
   }
   openCamera(): void {

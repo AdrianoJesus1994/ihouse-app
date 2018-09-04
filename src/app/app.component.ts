@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { UserDataProvider } from '../providers/user-data/user-data';
+import { AuthProvider } from '../providers/auth/auth';
 
 export interface PageInterface {
   title: string;
@@ -32,13 +33,14 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     screen: ScreenOrientation,
-    user: UserDataProvider
+    user: UserDataProvider,
+    private auth: AuthProvider
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#0abab5');
       splashScreen.hide();
-      if (!platform.is('mobileweb')) {
+      if (platform.is('mobile') && !platform.is('mobileweb')) {
         screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
       user.getUser().subscribe((res) => {
@@ -56,6 +58,7 @@ export class MyApp {
   }
 
   onLogout(): void {
+    this.auth.logout();
     this.nav.setRoot('LoginPage');
   }
 }

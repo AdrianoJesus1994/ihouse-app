@@ -17,6 +17,7 @@ import { PaypalProvider } from '../providers/paypal/paypal';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserDataProvider } from '../providers/user-data/user-data';
@@ -33,6 +34,7 @@ import { DatabaseProvider } from '../providers/database/database';
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     LoginPageModule,
     HttpClientModule
   ],
