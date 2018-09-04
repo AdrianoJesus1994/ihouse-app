@@ -1,39 +1,34 @@
 page-home {
+    .content {
+        background-color: color($colors, verde);
 
-    .content{
-            background-color: color($colors, verde);
-            
-    
-            .body{
-                background-color: #fff;
-                min-height: 90%;
-                height: auto;
-                .item{
-                    background: transparent;
-                }
+        .body {
+            background-color: #fff;
+            min-height: 90%;
+            height: auto;
 
+            .item {
+                background: transparent;
             }
-        .topo-boas-vindas{
+        }
+
+        .topo-boas-vindas {
             height: 20%;
         }
 
-        .menu-item-home{
+        .menu-item-home {
             border: solid 2px #f6f6f6;
             border-radius: 5px;
             height: 8em;
-
-            h3{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            h3 {
                 margin-top: 0;
                 font-size: 16px;
             }
-
-            // img{
-            //     padding: 2em;
-            // }
-            
         }
     }
-
-    
-
 }
