@@ -1,0 +1,23 @@
+page-invite {
+    .content {
+        background: #0abab5;
+    }
+    div.elevation-content {
+        & {
+            background: #fff;
+            padding: 16px;
+        }
+        div.title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+        div.description-content {
+            width: auto;
+            div {
+                width: auto;
+            }
+        }
+    }
+}

@@ -1,17 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Category } from '../../interfaces/category';
+import { Observable } from 'rxjs';
 
-/*
-  Generated class for the DatabaseProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DatabaseProvider {
+  constructor(private db: AngularFireDatabase) { }
 
-  constructor(public http: HttpClient) {
-    console.log('Hello DatabaseProvider Provider');
+  getListCategoreServices<T>(): Observable<T[]> {
+    return this.db.list<T>("cat_jobs").valueChanges();
   }
-
 }
