@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth';
 import { UserDataProvider } from './../../providers/user-data/user-data';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
@@ -22,7 +23,7 @@ export class LoginPage {
     private alertCtrl: AlertController,
     private dialogo: DialogoProvider,
     private loadingCtrl: LoadingController,
-    private auth: AngularFireAuth,
+    private auth: AuthProvider,
     private db: AngularFireDatabase,
     private userDataProvider: UserDataProvider,
     private storage: Storage
@@ -35,20 +36,11 @@ export class LoginPage {
   onLogin(): void {
     var loading = this.loadingCtrl.create();
     loading.present();
-    this.auth.auth.signInWithEmailAndPassword(this.email, this.senha)
-      .then((res) => {
-        this.db.list("user").valueChanges().subscribe((list: any[]) => {
-          loading.dismiss();
-          var user = list.filter((user) => {
-            return (user.email == this.email);
-          })[0];
-          this.userDataProvider.setUser(user);
-          this.navCtrl.setRoot("HomePage");
-        }, (err) => {
-          loading.dismiss();
-          this.dialogo.presentAlert(err.message);
-        });
-      }).catch((err) => {
+    this.auth.login(this.email, this.senha)
+      .then(() => {
+        loading.dismiss();
+        this.navCtrl.setRoot("HomePage");
+      }, (err) => {
         loading.dismiss();
         this.dialogo.presentAlert(err.message);
       });
@@ -77,7 +69,7 @@ export class LoginPage {
         text: 'Send',
         handler: data => {
           if (data.email) {
-            this.auth.auth.sendPasswordResetEmail(data.email);
+            this.auth.resetPassword(data.email);
           }
         }
       }]

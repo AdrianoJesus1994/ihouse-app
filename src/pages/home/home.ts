@@ -14,9 +14,8 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController, userProvider: UserDataProvider) {
-    userProvider.getUser().then((user) => {
-      this.nome = user.nome;
-    });
+    var user = userProvider.getUser();
+    this.nome = user.displayName;
   }
 
   ionViewDidLoad() {

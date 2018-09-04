@@ -1,10 +1,10 @@
 import { UserDataProvider } from './../../providers/user-data/user-data';
 import { Camera, CameraOptions } from 'ionic-native';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
 
 const options: CameraOptions = {
   quality: 100,
@@ -38,7 +38,7 @@ export class CadastroClientePage {
     private alertCtrl: AlertController,
     private userDataProvider: UserDataProvider,
     private loadingCtrl: LoadingController,
-    private auth: AngularFireAuth,
+    private auth: AuthProvider,
     private db: AngularFireDatabase
   ) { }
 
@@ -53,7 +53,7 @@ export class CadastroClientePage {
     } else {
       let loading = this.loadingCtrl.create();
       loading.present();
-      this.auth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha)
+      this.auth.register(this.usuario.email, this.usuario.senha)
         .then((res) => {
           loading.dismiss();
           console.log(res);
@@ -70,9 +70,9 @@ export class CadastroClientePage {
     }
   }
   private createUser(): void {
-    this.db.list("user").push(this.usuario);
-    this.userDataProvider.setUser(this.usuario);
-    this.navCtrl.setRoot("HomePage");
+    this.auth.updateProfile(this.usuario.nome, this.usuario.photo).then(() => {
+      this.navCtrl.setRoot("HomePage");
+    });
   }
   openCamera(): void {
     Camera.getPicture(options).then((imageData) => {

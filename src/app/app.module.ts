@@ -20,6 +20,8 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserDataProvider } from '../providers/user-data/user-data';
+import { AuthProvider } from '../providers/auth/auth';
+import { DatabaseProvider } from '../providers/database/database';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     FirebaseProvider,
     AngularFireAuth,
     AngularFireDatabase,
-    UserDataProvider
+    UserDataProvider,
+    AuthProvider,
+    DatabaseProvider
   ]
 })
 export class AppModule { }
