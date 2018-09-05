@@ -9,6 +9,9 @@ export class DatabaseProvider {
   getListCategoreServices<T>(): Observable<T[]> {
     return this.db.list<T>("cat_jobs").valueChanges();
   }
+  getMessages<T>(): Observable<T[]> {
+    return this.db.list<T>("messages").valueChanges();
+  }
   createUser<T>(path: string, user: T): void {
     this.db.list<T>(path).push(user);
   }
