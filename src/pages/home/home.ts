@@ -17,17 +17,14 @@ export class HomePage {
   }
 
   onMensagens(): void {
-    console.log("onMensagens()");
-    this.navCtrl.push('MensagensPage');
+    this.navCtrl.push('MessagesPage');
   }
 
   onMyJobs(): void {
-    console.log("onMyJobs()");
     this.navCtrl.push('MyjobsPage');
   }
 
   onOfferJobs(): void {
-    this.navCtrl.push('CategoriaServicosPage');
     console.log("onOfferJobs()");
   }
 
@@ -36,7 +33,6 @@ export class HomePage {
   }
 
   onSearchJobs(): void {
-    console.log("onSearchJobs()");
     this.navCtrl.push('SearchJobsCatPage');
   }
 }
