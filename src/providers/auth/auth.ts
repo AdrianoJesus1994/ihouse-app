@@ -1,7 +1,7 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
-import { auth } from 'firebase';
 import { AngularFireStorage } from 'angularfire2/storage';
+import { auth } from 'firebase';
 
 @Injectable()
 export class AuthProvider {
@@ -33,5 +33,11 @@ export class AuthProvider {
 
   resetPassword(email: string): void {
     this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
+  getUser(): Promise<firebase.User> {
+    return this.afAuth.auth.currentUser.reload().then(() => {
+      return this.afAuth.auth.currentUser;
+    });
   }
 }

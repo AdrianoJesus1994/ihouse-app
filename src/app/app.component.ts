@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { UserDataProvider } from '../providers/user-data/user-data';
 import { AuthProvider } from '../providers/auth/auth';
 
 export interface PageInterface {
@@ -33,7 +32,6 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     screen: ScreenOrientation,
-    user: UserDataProvider,
     private auth: AuthProvider
   ) {
     platform.ready().then(() => {
@@ -43,12 +41,12 @@ export class MyApp {
       if (platform.is('mobile') && !platform.is('mobileweb')) {
         screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
-      user.getUser().subscribe((res) => {
+      auth.getUser().then((res) => {
         this.rootPage = !!res ? "HomePage" : "LoginPage";
       }, (err) => {
         this.rootPage = "LoginPage";
       });
-      
+
     });
 
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { UserDataProvider } from '../../providers/user-data/user-data';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -10,16 +10,11 @@ import { UserDataProvider } from '../../providers/user-data/user-data';
 export class PaymentServicesPage {
 
   serviceCompleto: any = null;
-  public nomeUsuario: any = null;
-  public nome: string = "";
+  nome: string = "";
 
-  constructor(
-    public navCtrl: NavController,
-    navParams: NavParams,
-    user: UserDataProvider
-  ) {
+  constructor(private navCtrl: NavController, navParams: NavParams, auth: AuthProvider) {
     this.serviceCompleto = navParams.data.servico;
-    user.getUser().subscribe((val) => {
+    auth.getUser().then((val) => {
       this.nome = val.displayName;
     });
   }
