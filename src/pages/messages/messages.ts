@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { Dialog } from '../../providers/dialog/dialog';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Message } from '../../interfaces/message';
 
@@ -12,7 +12,7 @@ import { Message } from '../../interfaces/message';
 export class MessagesPage {
   mensagens: Message[];
 
-  constructor(private dialog: DialogoProvider, private database: DatabaseProvider) { }
+  constructor(private dialog: Dialog, private database: DatabaseProvider) { }
 
   ionViewDidLoad(): void {
     this.database.getMessages<Message>().subscribe((res) => {

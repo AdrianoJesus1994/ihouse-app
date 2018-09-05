@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
-import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { Dialog } from '../../providers/dialog/dialog';
 
 @IonicPage()
 @Component({
@@ -16,16 +16,24 @@ export class LoginPage {
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private dialog: DialogoProvider,
+    private dialog: Dialog,
     private auth: AuthProvider
   ) { }
 
   onLogin(): void {
     this.dialog.showLoading();
     this.auth.login(this.email, this.password)
-      .then(() => {
+      .then((credential) => {
         this.dialog.hideLoading();
-        this.navCtrl.setRoot("HomePage");
+        if (credential.user.emailVerified) {
+          this.navCtrl.setRoot("HomePage");
+        } else {
+          this.dialog.presentConfirm(
+            'You need to verify your e-mail',
+            'Do you want to resend your verification code?',
+            () => credential.user.sendEmailVerification()
+          )
+        }
       }, (err) => this.dialog.presentAlert(err.message));
   }
 

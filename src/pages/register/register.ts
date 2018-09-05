@@ -1,5 +1,5 @@
 import { Camera, CameraOptions } from 'ionic-native';
-import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { Dialog } from '../../providers/dialog/dialog';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -31,30 +31,30 @@ export class RegisterPage {
 
   constructor(
     private navCtrl: NavController,
-    private dialogo: DialogoProvider,
+    private dialog: Dialog,
     private auth: AuthProvider,
     private db: DatabaseProvider
   ) { }
 
   onRegister(): void {
     if (this.password !== this.passwordConfirm) {
-      this.dialogo.presentAlert("As senhas não conferem");
+      this.dialog.presentAlert("As senhas não conferem");
       return;
     }
-    this.dialogo.showLoading();
+    this.dialog.showLoading();
     this.auth.register(this.email, this.password)
       .then((res) => {
-        this.dialogo.hideLoading();
+        this.dialog.hideLoading();
         this.createUser(res.user.uid);
       }).catch((err) => {
-        this.dialogo.presentAlert(err.message);
+        this.dialog.presentAlert(err.message);
       })
   }
   openCamera(): void {
     Camera.getPicture(options).then((imageData) => {
       this.photo = `${imageData}`;
     }, (err) => {
-      this.dialogo.presentAlert(err);
+      this.dialog.presentAlert(err);
     });
   }
   private createUser(id: string): void {
@@ -65,7 +65,7 @@ export class RegisterPage {
       });
     }
     this.auth.updateProfile(this.name, filePath).then(() => {
-      this.navCtrl.setRoot("HomePage");
+      this.navCtrl.setRoot("LoginPage");
     });
     if (this.type === "employer") {
       this.db.createUser<Employer>(`employer/${id}`, {

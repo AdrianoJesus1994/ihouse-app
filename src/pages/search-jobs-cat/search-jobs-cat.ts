@@ -1,4 +1,4 @@
-import { DialogoProvider } from './../../providers/dialogo/dialogo';
+import { Dialog } from './../../providers/dialog/dialog';
 import { ServicosProvider } from './../../providers/servicos/servicos';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -19,7 +19,7 @@ export class SearchJobsCatPage {
 
   categorias: any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialogo: DialogoProvider, private servicoProvider: ServicosProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dialog: Dialog, private servicoProvider: ServicosProvider) {
   }
 
 
@@ -29,7 +29,7 @@ export class SearchJobsCatPage {
         console.log(res);
         this.categorias = res
       } else {
-        this.dialogo.presentAlert("Loading Faield");
+        this.dialog.presentAlert("Loading Faield");
       }
     },err => {
       console.log(err);

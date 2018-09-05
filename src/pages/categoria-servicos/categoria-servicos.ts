@@ -1,4 +1,4 @@
-import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { Dialog } from '../../providers/dialog/dialog';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -12,16 +12,16 @@ import { Category } from '../../interfaces/category';
 export class CategoriaServicosPage {
   categorias: Category[] = [];
 
-  constructor(private navCtrl: NavController, private dialogo: DialogoProvider, private database: DatabaseProvider) { }
+  constructor(private navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }
 
   ionViewDidLoad(): void {
-    this.dialogo.showLoading();
+    this.dialog.showLoading();
     this.database.getListCategoreServices<Category>().subscribe((res) => {
-      this.dialogo.hideLoading();
+      this.dialog.hideLoading();
       this.categorias = res;
     }, (err) => {
       console.log(err);
-      this.dialogo.presentAlert(err.message);
+      this.dialog.presentAlert(err.message);
     })
   }
 

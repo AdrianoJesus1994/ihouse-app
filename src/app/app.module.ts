@@ -1,6 +1,6 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { DialogoProvider } from './../providers/dialogo/dialogo';
+import { Dialog } from './../providers/dialog/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -39,7 +39,7 @@ import { DatabaseProvider } from '../providers/database/database';
     ScreenOrientation,
     AngularFireAuth,
     AngularFireDatabase,
-    DialogoProvider,
+    Dialog,
     PaypalProvider,
     AuthProvider,
     DatabaseProvider

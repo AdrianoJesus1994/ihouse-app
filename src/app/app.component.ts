@@ -42,15 +42,12 @@ export class MyApp {
         screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
       auth.getUser().subscribe((res) => {
-        console.log('SUCESSO', res);
-        this.rootPage = !!res ? "HomePage" : "LoginPage";
+        this.rootPage = (res && res.emailVerified) ? "HomePage" : "LoginPage";
       }, (err) => {
         console.log('ERRo', err);
         this.rootPage = "LoginPage";
       });
-
     });
-
   }
 
   openPage(page: PageInterface): void {

@@ -1,4 +1,4 @@
-import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { Dialog } from '../../providers/dialog/dialog';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Category } from '../../interfaces/category';
@@ -14,13 +14,13 @@ export class SelectDateServicePage {
   dateSeleced: any;
   horaSelected: any;
 
-  constructor(navParams: NavParams, private navCtrl: NavController, private dialogo: DialogoProvider) {
+  constructor(navParams: NavParams, private navCtrl: NavController, private dialog: Dialog) {
     this.categoria = navParams.data.categoria;
   }
 
   onNext() {
     if (!this.dateSeleced || !this.horaSelected) {
-      this.dialogo.presentAlert("Campos obrigatório não preenchidos");
+      this.dialog.presentAlert("Campos obrigatório não preenchidos");
     } else {
       let servico = {
         data: this.dateSeleced,
