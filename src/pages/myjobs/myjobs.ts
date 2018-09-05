@@ -1,14 +1,9 @@
-import { Dialog } from '../../providers/dialog/dialog';
-import { ServicosProvider } from '../../providers/servicos/servicos';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { DatabaseProvider } from '../../providers/database/database';
+import { Dialog } from '../../providers/dialog/dialog';
+import { Job } from '../../interfaces/job';
 
-/**
- * Generated class for the MyjobsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,34 +11,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'myjobs.html',
 })
 export class MyjobsPage {
+  myJobs: Job[];
 
-  myJobs: any[];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialog:Dialog, private servicoProvider:ServicosProvider) {
-  }
+  constructor(private navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyjobsPage');
     this._onLoadListServices();
   }
 
-  onVerDetalhes(service:any){
+  onVerDetalhes(service: any) {
     console.log(service);
-    this.navCtrl.push('MyJobDetalhePage', {job: service});
+    this.navCtrl.push('MyJobDetalhePage', { job: service });
   }
 
-  _onLoadListServices(){
-    this.servicoProvider.getListMyJobs().subscribe(res=>{
-      if(res){
-        this.myJobs = res;
-      }else{
-        console.log(res);
-        
-      }
-    },err=>{
-      console.log(err);
-      this.dialog.presentAlert("Ocorreu um erro ao carregar os seus trabalhos")
-    });
+  _onLoadListServices() {
+    // TODO
   }
 
 }

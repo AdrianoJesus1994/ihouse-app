@@ -13,7 +13,7 @@ export class JobPaymentPage {
   employerID: number;
   job: Job;
 
-  constructor(private navCtrl: NavController, navParams: NavParams, auth: AuthProvider) {
+  constructor(navParams: NavParams, auth: AuthProvider, private navCtrl: NavController) {
     auth.getUser().subscribe((val) => {
       this.name = val.displayName;
       this.job = navParams.data.job;
