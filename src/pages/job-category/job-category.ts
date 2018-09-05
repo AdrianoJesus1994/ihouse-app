@@ -1,22 +1,22 @@
-import { Dialog } from '../../providers/dialog/dialog';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { Dialog } from '../../providers/dialog/dialog';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Category } from '../../interfaces/category';
 
 @IonicPage()
 @Component({
-  selector: 'page-categoria-servicos',
-  templateUrl: 'categoria-servicos.html',
+  selector: 'page-job-category',
+  templateUrl: 'job-category.html',
 })
-export class CategoriaServicosPage {
+export class JobCategoryPage {
   categorias: Category[] = [];
 
   constructor(private navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }
 
   ionViewDidLoad(): void {
     this.dialog.showLoading();
-    this.database.getListCategoreServices<Category>().subscribe((res) => {
+    this.database.getCategories<Category>().subscribe((res) => {
       this.dialog.hideLoading();
       this.categorias = res;
     }, (err) => {
@@ -26,8 +26,7 @@ export class CategoriaServicosPage {
   }
 
   onSelectCategory(category: Category): void {
-    console.log(category);
-    this.navCtrl.push('SelectDateServicePage', { categoria: category });
+    this.navCtrl.push('JobDatePage', { category: category });
   }
 
 }

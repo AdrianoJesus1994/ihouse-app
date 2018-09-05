@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export class DatabaseProvider {
   constructor(private db: AngularFireDatabase) { }
 
-  getListCategoreServices<T>(): Observable<T[]> {
+  getCategories<T>(): Observable<T[]> {
     return this.db.list<T>("cat_jobs").valueChanges();
   }
   getMessages<T>(): Observable<T[]> {

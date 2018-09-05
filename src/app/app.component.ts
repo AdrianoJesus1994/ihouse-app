@@ -20,7 +20,7 @@ export class MyApp {
 
   pages: PageInterface[] = [
     { title: 'Home', component: 'HomePage' },
-    { title: 'Offer Job', component: 'CategoriaServicosPage' },
+    { title: 'Offer Job', component: 'JobCategoryPage' },
     { title: 'Search Job', component: 'SearchJobsCatPage' },
     { title: 'My Jobs', component: 'MyjobsPage' },
     { title: 'Messages', component: 'MensagensPage' },

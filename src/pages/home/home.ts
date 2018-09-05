@@ -25,7 +25,7 @@ export class HomePage {
   }
 
   onOfferJobs(): void {
-    console.log("onOfferJobs()");
+    this.navCtrl.push('JobCategoryPage');
   }
 
   onSettings(): void {

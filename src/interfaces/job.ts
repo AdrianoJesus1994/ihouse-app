@@ -1,8 +1,9 @@
+import { Category } from "./category";
+import { Employee } from "./user";
+
 export interface Job {
-    id: number,
-    category_id: number,
-    employee_id?: number,
-    employer_id: number,
-    name: string,
-    value: number
+    category: Category,
+    employee?: Employee,
+    hasAccepted: boolean,
+    timestamp: number
 }

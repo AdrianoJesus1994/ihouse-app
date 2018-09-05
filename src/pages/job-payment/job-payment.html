@@ -17,7 +17,7 @@
   <div class="container" padding>
     <ion-item no-padding padding-top>
       <div align="center">
-        <h1>Mr. {{nome}}</h1>
+        <h1>Mr. {{name}}</h1>
         <p>This was your job</p>
       </div>
     </ion-item>
@@ -37,13 +37,13 @@
         <hr>
         <ion-row>
           <ion-col col-2>
-            <p>{{serviceCompleto.servico.id}}</p>
+            <p>{{job.category.id}}</p>
           </ion-col>
           <ion-col col-7>
-            <p>{{serviceCompleto.servico.categoria}}</p>
+            <p>{{job.category.name}}</p>
           </ion-col>
           <ion-col col-3>
-            <p>$ {{serviceCompleto.servico.price}}</p>
+            <p>$ {{job.category.value}}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -52,7 +52,7 @@
     <p>Total:</p>
     <ion-row class="total" padding>
       <div class="total-total">
-        <b>{{serviceCompleto.servico.price}}</b>
+        <b>{{job.category.value}}</b>
       </div>
     </ion-row>
     <br>
