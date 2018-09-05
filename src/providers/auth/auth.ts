@@ -1,11 +1,11 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { auth } from 'firebase';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthProvider {
-
   constructor(private afAuth: AngularFireAuth, private afStorage: AngularFireStorage) { }
 
   login(email: string, password: string): Promise<auth.UserCredential> {
@@ -27,17 +27,15 @@ export class AuthProvider {
     })
   }
 
-  uploadPhoto(path: string, imageData: any): void {
-    this.afStorage.upload(path, imageData);
+  uploadPhoto(path: string, imageData: any): AngularFireUploadTask {
+    return this.afStorage.upload(path, imageData);
   }
 
   resetPassword(email: string): void {
     this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-  getUser(): Promise<firebase.User> {
-    return this.afAuth.auth.currentUser.reload().then(() => {
-      return this.afAuth.auth.currentUser;
-    });
+  getUser(): Observable<firebase.User> {
+    return this.afAuth.user;
   }
 }

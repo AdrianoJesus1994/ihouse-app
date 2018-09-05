@@ -11,7 +11,7 @@ export class HomePage {
   public nome: string = "";
 
   constructor(private navCtrl: NavController, auth: AuthProvider) {
-    auth.getUser().then((user) => {
+    auth.getUser().subscribe((user) => {
       this.nome = user.displayName;
     });
   }

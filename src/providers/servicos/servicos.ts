@@ -2,15 +2,9 @@ import { Job } from './../../interfaces/job';
 import { Category } from './../../interfaces/category';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireAction, DatabaseSnapshot } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from '../../../node_modules/rxjs';
 
-/*
-  Generated class for the ServicosProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ServicosProvider {
 

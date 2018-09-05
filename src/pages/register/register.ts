@@ -52,29 +52,30 @@ export class RegisterPage {
   }
   openCamera(): void {
     Camera.getPicture(options).then((imageData) => {
-      this.photo = `data:image/jpeg;base64,${imageData}`;
+      this.photo = `${imageData}`;
     }, (err) => {
       this.dialogo.presentAlert(err);
     });
   }
   private createUser(id: string): void {
-    const filePath = `users / ${id}.png`;
-    const userPath = `${this.type} /${id}`;
+    const filePath = `users/${id}.png`;
     if (this.photo) {
-      this.auth.uploadPhoto(filePath, this.photo);
+      this.auth.uploadPhoto(filePath, this.photo).then((upload) => {
+        console.log(upload);
+      });
     }
     this.auth.updateProfile(this.name, filePath).then(() => {
       this.navCtrl.setRoot("HomePage");
     });
     if (this.type === "employer") {
-      this.db.createUser<Employer>(userPath, {
+      this.db.createUser<Employer>(`employer/${id}`, {
         name: this.name,
         phone: this.phone,
         address: this.address,
         socialSecurity: this.socialSecurity
       });
     } else {
-      this.db.createUser<Employee>(userPath, {
+      this.db.createUser<Employee>(`employee/${id}`, {
         name: this.name,
         phone: this.phone,
         address: this.address,

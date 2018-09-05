@@ -13,6 +13,24 @@ export class DatabaseProvider {
     return this.db.list<T>("messages").valueChanges();
   }
   createUser<T>(path: string, user: T): void {
-    this.db.list<T>(path).push(user);
+    this.db.object<T>(path).set(user);
+  }
+
+  // Employee
+
+  getEmployees<T>(): Observable<T[]> {
+    return this.db.list<T>("employee").valueChanges();
+  }
+  getEmployeeByID<T>(id: string): Observable<T> {
+    return this.db.object<T>(`employee/${id}`).valueChanges();
+  }
+
+  // Employer
+
+  getEmployers<T>(): Observable<T[]> {
+    return this.db.list<T>("employer").valueChanges();
+  }
+  getEmployerByID<T>(id: string): Observable<T> {
+    return this.db.object<T>(`employer/${id}`).valueChanges();
   }
 }

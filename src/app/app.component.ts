@@ -41,9 +41,11 @@ export class MyApp {
       if (platform.is('mobile') && !platform.is('mobileweb')) {
         screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
-      auth.getUser().then((res) => {
+      auth.getUser().subscribe((res) => {
+        console.log('SUCESSO', res);
         this.rootPage = !!res ? "HomePage" : "LoginPage";
       }, (err) => {
+        console.log('ERRo', err);
         this.rootPage = "LoginPage";
       });
 

@@ -14,7 +14,7 @@ export class PaymentServicesPage {
 
   constructor(private navCtrl: NavController, navParams: NavParams, auth: AuthProvider) {
     this.serviceCompleto = navParams.data.servico;
-    auth.getUser().then((val) => {
+    auth.getUser().subscribe((val) => {
       this.nome = val.displayName;
     });
   }
