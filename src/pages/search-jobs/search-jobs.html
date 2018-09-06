@@ -1,9 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <!-- <ion-title>Search Jobs</ion-title> -->
     <img src="assets/imgs/ihouse_logo.png" width="50%" alt="">
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <ion-segment [(ngModel)]="category">
+    <ion-segment-button *ngFor="let c of categories" value="{{c}}" (click)="onCategoryChange()">
+      {{c.name}}
+    </ion-segment-button>
+  </ion-segment>
   <div *ngFor="let job of jobs"></div>
 </ion-content>

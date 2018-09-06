@@ -33,6 +33,6 @@ export class HomePage {
   }
 
   onSearchJobs(): void {
-    this.navCtrl.push('SearchJobsCatPage');
+    this.navCtrl.push('SearchJobsPage');
   }
 }
