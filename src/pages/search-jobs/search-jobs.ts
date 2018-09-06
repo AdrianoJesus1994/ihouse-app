@@ -1,15 +1,15 @@
 import { Job } from './../../interfaces/job';
 import { Dialog } from './../../providers/dialog/dialog';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
 @Component({
-  selector: 'page-search-jobs-cat',
-  templateUrl: 'search-jobs-cat.html',
+  selector: 'page-search-jobs',
+  templateUrl: 'search-jobs.html',
 })
-export class SearchJobsCatPage {
+export class SearchJobsPage {
   jobs: Job[] = [];
 
   constructor(public navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }

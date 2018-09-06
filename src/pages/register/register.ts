@@ -71,14 +71,14 @@ export class RegisterPage {
       this.db.createUser<Employer>(`employer/${id}`, {
         name: this.name,
         phone: this.phone,
-        address: this.address,
-        socialSecurity: this.socialSecurity
+        address: this.address
       });
     } else {
       this.db.createUser<Employee>(`employee/${id}`, {
         name: this.name,
         phone: this.phone,
         address: this.address,
+        socialSecurity: this.socialSecurity,
         rating: 5
       });
     }
