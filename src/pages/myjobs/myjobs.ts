@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -11,13 +12,25 @@ import { Job } from '../../interfaces/job';
   templateUrl: 'myjobs.html',
 })
 export class MyjobsPage {
-  myJobs: Job[];
+  myJobs: Job[] = [];
 
-  constructor(private navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }
+  constructor(
+    private navCtrl: NavController,
+    private dialog: Dialog,
+    private auth: AuthProvider,
+    private database: DatabaseProvider
+  ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MyjobsPage');
-    this._onLoadListServices();
+    this.dialog.showLoading();
+    this.auth.getUser().subscribe((user) => {
+      this.database.getJobsByEmployer<Job>(user.uid).subscribe((jobs) => {
+        this.dialog.hideLoading();
+        this.myJobs = jobs;
+      }, (err) => {
+        this.dialog.presentAlert(err.message);
+      });
+    });
   }
 
   onVerDetalhes(service: any) {

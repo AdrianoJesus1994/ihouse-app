@@ -3,11 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { SearchJobsCatPage } from './search-jobs-cat';
 
 @NgModule({
-  declarations: [
-    SearchJobsCatPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(SearchJobsCatPage),
-  ],
+  declarations: [SearchJobsCatPage],
+  imports: [IonicPageModule.forChild(SearchJobsCatPage)]
 })
-export class SearchJobsCatPageModule {}
+export class SearchJobsCatPageModule { }

@@ -10,7 +10,7 @@ import { Category } from '../../interfaces/category';
   templateUrl: 'job-category.html',
 })
 export class JobCategoryPage {
-  categorias: Category[] = [];
+  categories: Category[] = [];
 
   constructor(private navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }
 
@@ -18,7 +18,7 @@ export class JobCategoryPage {
     this.dialog.showLoading();
     this.database.getCategories<Category>().subscribe((res) => {
       this.dialog.hideLoading();
-      this.categorias = res;
+      this.categories = res;
     }, (err) => {
       console.log(err);
       this.dialog.presentAlert(err.message);

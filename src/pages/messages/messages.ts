@@ -10,7 +10,7 @@ import { Message } from '../../interfaces/message';
   templateUrl: 'messages.html',
 })
 export class MessagesPage {
-  mensagens: Message[];
+  mensagens: Message[] = [];
 
   constructor(private dialog: Dialog, private database: DatabaseProvider) { }
 

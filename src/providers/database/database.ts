@@ -7,13 +7,27 @@ export class DatabaseProvider {
   constructor(private db: AngularFireDatabase) { }
 
   getCategories<T>(): Observable<T[]> {
-    return this.db.list<T>("cat_jobs").valueChanges();
+    return this.db.list<T>("category").valueChanges();
   }
   getMessages<T>(): Observable<T[]> {
     return this.db.list<T>("messages").valueChanges();
   }
   createUser<T>(path: string, user: T): void {
     this.db.object<T>(path).set(user);
+  }
+
+  // Job
+
+  createJob<T>(path: string, job: T): void {
+    this.db.object<T>(path).set(job);
+  }
+
+  getJobsByEmployer<T>(id: string): Observable<T[]> {
+    return this.db.list<T>(`jobs/${id}`).valueChanges();
+  }
+
+  getJobs<T>(): Observable<T[]> {
+    return this.db.list<T>("jobs").valueChanges();
   }
 
   // Employee

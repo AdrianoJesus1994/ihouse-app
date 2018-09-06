@@ -1,4 +1,4 @@
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Dialog } from './../providers/dialog/dialog';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,10 +14,18 @@ import { PaypalProvider } from '../providers/paypal/paypal';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { FIREBASE_CONFIG } from '../assets/config/firebase.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthProvider } from '../providers/auth/auth';
 import { DatabaseProvider } from '../providers/database/database';
+
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBWFR82-NDK2Ug3IMv8PAblLsORcOSCl94",
+  authDomain: "ihouse-8ddbe.firebaseapp.com",
+  databaseURL: "https://ihouse-8ddbe.firebaseio.com",
+  projectId: "ihouse-8ddbe",
+  storageBucket: "ihouse-8ddbe.appspot.com",
+  messagingSenderId: "720602884263"
+};
 
 @NgModule({
   declarations: [MyApp],
@@ -27,6 +35,7 @@ import { DatabaseProvider } from '../providers/database/database';
     IonicModule.forRoot(MyApp, { mode: 'md' }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule
   ],
@@ -37,8 +46,6 @@ import { DatabaseProvider } from '../providers/database/database';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ScreenOrientation,
-    AngularFireAuth,
-    AngularFireDatabase,
     Dialog,
     PaypalProvider,
     AuthProvider,

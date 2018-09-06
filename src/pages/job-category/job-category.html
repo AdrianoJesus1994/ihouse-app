@@ -6,23 +6,15 @@
     <img src="assets/imgs/ihouse_logo.png" width="50%" alt="">
   </ion-navbar>
 </ion-header>
-<ion-content no-padding padding-left padding-right>
-  <div class="body" no-padding padding-left padding-right>
-    <ion-list>
-      <ion-grid no-padding>
-        <ion-row no-padding>
-          <ion-col no-padding padding-right padding-left col-6 *ngFor="let c of categorias">
-            <button ion-item no-padding no-lines (click)="onSelectCategory(c)">
-              <div align="center">
-                <ion-avatar>
-                  <img [src]="c.img" alt="">
-                </ion-avatar>
-                <h2>{{c.categoria}}</h2>
-              </div>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-list>
-  </div>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let c of categories" (click)="onSelectCategory(c)">
+        <ion-avatar>
+          <img [src]="c.img" alt="">
+        </ion-avatar>
+        <div>{{c.name}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

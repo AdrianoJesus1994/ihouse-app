@@ -1,14 +1,8 @@
+import { Job } from './../../interfaces/job';
 import { Dialog } from './../../providers/dialog/dialog';
-import { ServicosProvider } from './../../providers/servicos/servicos';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SearchJobsCatPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
 @Component({
@@ -16,23 +10,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search-jobs-cat.html',
 })
 export class SearchJobsCatPage {
+  jobs: Job[] = [];
 
-  categorias: any[];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dialog: Dialog, private servicoProvider: ServicosProvider) {
-  }
+  constructor(public navCtrl: NavController, private dialog: Dialog, private database: DatabaseProvider) { }
 
 
   ionViewDidLoad() {
-    this.servicoProvider.getListCategoreServices().subscribe(res => {
-      if (res) {
-        console.log(res);
-        this.categorias = res
-      } else {
-        this.dialog.presentAlert("Loading Faield");
-      }
-    },err => {
-      console.log(err);
+    this.database.getJobs<Job>().subscribe((jobs) => {
+      this.dialog.hideLoading();
+      this.jobs = jobs;
+    }, (err) => {
+      this.dialog.presentAlert(err.message);
     });
   }
 
