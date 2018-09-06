@@ -37,7 +37,7 @@ export class SearchJobsPage {
   }
 
   onCategoryChange(): void {
-    console.log(this.categoryID);
+    console.log(this.category);
   }
 
   onSelectCategory(cat: any) {

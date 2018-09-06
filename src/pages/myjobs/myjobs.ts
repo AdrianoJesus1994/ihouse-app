@@ -21,7 +21,7 @@ export class MyjobsPage {
     private database: DatabaseProvider
   ) { }
 
-  ionViewDidLoad() {
+  ionViewDidLoad(): void {
     this.dialog.showLoading();
     this.auth.getUser().subscribe((user) => {
       this.database.getJobsByEmployer<Job>(user.uid).subscribe((jobs) => {
@@ -33,13 +33,7 @@ export class MyjobsPage {
     });
   }
 
-  onVerDetalhes(service: any) {
-    console.log(service);
-    this.navCtrl.push('MyJobDetalhePage', { job: service });
+  onVerDetalhes(job: Job): void {
+    this.navCtrl.push('MyJobDetalhePage', { job: job });
   }
-
-  _onLoadListServices() {
-    // TODO
-  }
-
 }
