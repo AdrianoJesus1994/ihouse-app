@@ -1,9 +1,9 @@
-import { Category } from './../../interfaces/category';
-import { Job } from './../../interfaces/job';
-import { Dialog } from './../../providers/dialog/dialog';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, Segment } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
+import { Category } from './../../interfaces/category';
+import { Job } from './../../interfaces/job';
+import { Dialog } from './../../providers/dialog/dialog';
 
 @IonicPage()
 @Component({
@@ -40,8 +40,8 @@ export class SearchJobsPage {
     console.log(this.category);
   }
 
-  onSelectCategory(cat: any) {
-    this.navCtrl.push('ListJobsPage', { data: cat });
+  onSelectCategory(job: Job): void {
+    this.navCtrl.push('SearchContentPage', { job: job });
   }
 
 }
