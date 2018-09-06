@@ -8,11 +8,11 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public nome: string = "";
+  public name: string = "";
 
   constructor(private navCtrl: NavController, auth: AuthProvider) {
     auth.getUser().subscribe((user) => {
-      this.nome = user.displayName;
+      this.name = user.displayName;
     });
   }
 
@@ -29,7 +29,7 @@ export class HomePage {
   }
 
   onSettings(): void {
-    console.log("onSettings()");
+    this.navCtrl.push('SettingsPage');
   }
 
   onSearchJobs(): void {

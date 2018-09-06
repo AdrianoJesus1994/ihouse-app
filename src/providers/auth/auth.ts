@@ -31,6 +31,11 @@ export class AuthProvider {
     return this.afStorage.upload(path, imageData);
   }
 
+  getPhoto(path: string): Observable<any> {
+    const ref = this.afStorage.ref(path);
+    return ref.getDownloadURL();
+  }
+
   resetPassword(email: string): void {
     this.afAuth.auth.sendPasswordResetEmail(email);
   }

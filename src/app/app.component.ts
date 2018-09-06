@@ -17,6 +17,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string;
+  photo: string = '../assets/icon/photo.svg';
 
   pages: PageInterface[] = [
     { title: 'Home', component: 'HomePage' },
@@ -41,12 +42,18 @@ export class MyApp {
       if (platform.is('mobile') && !platform.is('mobileweb')) {
         screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
-      auth.getUser().subscribe((res) => {
-        this.rootPage = (res && res.emailVerified) ? "HomePage" : "LoginPage";
-      }, (err) => {
-        console.log('ERRo', err);
-        this.rootPage = "LoginPage";
-      });
+      auth.getUser().subscribe((user) => {
+        if (user && user.emailVerified) {
+          if (user.photoURL) {
+            this.auth.getPhoto(user.photoURL).subscribe((url) => {
+              this.photo = url;
+            });
+          }
+          this.rootPage = "HomePage";
+        } else {
+          this.rootPage = "LoginPage";
+        }
+      }, () => this.rootPage = "LoginPage");
     });
   }
 
@@ -55,7 +62,8 @@ export class MyApp {
   }
 
   onLogout(): void {
-    this.auth.logout();
-    this.nav.setRoot('LoginPage');
+    this.nav.setRoot('LoginPage').then(() => {
+      this.auth.logout();
+    });
   }
 }
