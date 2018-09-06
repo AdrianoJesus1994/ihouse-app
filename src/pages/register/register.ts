@@ -1,17 +1,11 @@
-import { Camera, CameraOptions } from 'ionic-native';
-import { Dialog } from '../../providers/dialog/dialog';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { Dialog } from '../../providers/dialog/dialog';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Employee, Employer } from '../../interfaces/user';
-
-const options: CameraOptions = {
-  quality: 100,
-  destinationType: Camera.DestinationType.FILE_URI,
-  encodingType: Camera.EncodingType.JPEG,
-  mediaType: Camera.MediaType.PICTURE
-}
 
 @IonicPage()
 @Component({
@@ -31,6 +25,8 @@ export class RegisterPage {
 
   constructor(
     private navCtrl: NavController,
+    private camera: Camera,
+    private file: File,
     private dialog: Dialog,
     private auth: AuthProvider,
     private db: DatabaseProvider
@@ -51,17 +47,28 @@ export class RegisterPage {
       })
   }
   openCamera(): void {
-    Camera.getPicture(options).then((imageData) => {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(options).then((imageData) => {
       this.photo = `${imageData}`;
     }, (err) => {
       this.dialog.presentAlert(err);
     });
   }
   private createUser(id: string): void {
-    const filePath = `users/${id}.png`;
+    const fileName = `users/${id}`;
+    const filePath = `${fileName}.png`;
     if (this.photo) {
-      this.auth.uploadPhoto(filePath, this.photo).then((upload) => {
-        console.log(upload);
+      this.file.createFile(this.photo, fileName, true).then((entry) => {
+        entry.file((file) => {
+          this.auth.uploadPhoto(filePath, file).then((upload) => {
+            console.log(upload);
+          });
+        });
       });
     }
     this.auth.updateProfile(this.name, filePath).then(() => {
