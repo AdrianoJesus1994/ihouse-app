@@ -1,4 +1,4 @@
-import { AuthProvider } from './../../providers/auth/auth';
+import { AuthProvider } from '../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -8,10 +8,10 @@ import { Job } from '../../interfaces/job';
 
 @IonicPage()
 @Component({
-  selector: 'page-myjobs',
-  templateUrl: 'myjobs.html',
+  selector: 'page-myjobs-list',
+  templateUrl: 'myjobs-list.html',
 })
-export class MyjobsPage {
+export class MyjobsListPage {
   myJobs: Job[] = [];
 
   constructor(
@@ -34,6 +34,6 @@ export class MyjobsPage {
   }
 
   onVerDetalhes(job: Job): void {
-    this.navCtrl.push('MyJobDetalhePage', { job: job });
+    this.navCtrl.push('MyJobContentPage', { job: job });
   }
 }

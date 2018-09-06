@@ -23,7 +23,7 @@ export class MyApp {
     { title: 'Home', component: 'HomePage' },
     { title: 'Offer Job', component: 'JobCategoryPage' },
     { title: 'Search Job', component: 'SearchJobsCatPage' },
-    { title: 'My Jobs', component: 'MyjobsPage' },
+    { title: 'My Jobs', component: 'MyjobsListPage' },
     { title: 'Messages', component: 'MensagensPage' },
     { title: 'Settings', component: 'HomePage' }
   ];

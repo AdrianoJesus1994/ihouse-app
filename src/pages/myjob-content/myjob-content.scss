@@ -1,42 +1,36 @@
-page-myjob-detalhe {
-    .content{
+page-myjob-content {
+    .content {
         height: 100%;
         width: 100%;
-        background-color: color($colors,verde);
-
-        .container{
+        background-color: color($colors, verde);
+        .container {
             height: 100%;
-        width: 100%;
-        background-color: #fff;;
+            width: 100%;
+            background-color: #fff;
         }
-
-        .total{
+        .total {
             margin: auto;
             border: solid 2px #f6f6f6;
             width: 20em;
             height: 4em;
             border-radius: 4em;
-
-            .total-total{
+            .total-total {
                 margin: auto;
                 color: #666;
                 font-size: 16px;
             }
         }
-
-        .paid{
+        .paid {
             margin: auto;
             border: solid 2px color($colors, primary);
             width: 20em;
             height: 4em;
             border-radius: 4em;
-
-            .paid-mode{
+            .paid-mode {
                 margin: auto;
                 color: color($colors, primary);
                 font-size: 18px;
             }
         }
     }
-
 }

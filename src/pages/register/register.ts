@@ -5,7 +5,7 @@ import { File } from '@ionic-native/file';
 import { Dialog } from '../../providers/dialog/dialog';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DatabaseProvider } from '../../providers/database/database';
-import { Employee, Employer } from '../../interfaces/user';
+import { UserInterface } from '../../interfaces/user';
 
 @IonicPage()
 @Component({
@@ -16,7 +16,7 @@ export class RegisterPage {
   type: string = "employer";
   name: string = "";
   email: string = "";
-  socialSecurity: string = "";
+  ssn: string;
   photo: string = "";
   address: string = "";
   phone: string = "";
@@ -74,20 +74,13 @@ export class RegisterPage {
     this.auth.updateProfile(this.name, filePath).then(() => {
       this.navCtrl.setRoot("LoginPage");
     });
-    if (this.type === "employer") {
-      this.db.createUser<Employer>(`employer/${id}`, {
-        name: this.name,
-        phone: this.phone,
-        address: this.address
-      });
-    } else {
-      this.db.createUser<Employee>(`employee/${id}`, {
-        name: this.name,
-        phone: this.phone,
-        address: this.address,
-        socialSecurity: this.socialSecurity,
-        rating: 5
-      });
-    }
+    this.db.createUser<UserInterface>(`user/${id}`, {
+      name: this.name,
+      phone: this.phone,
+      address: this.address,
+      type: this.type,
+      ssn: this.ssn,
+      rating: 5
+    });
   }
 }

@@ -21,7 +21,7 @@ export class HomePage {
   }
 
   onMyJobs(): void {
-    this.navCtrl.push('MyjobsPage');
+    this.navCtrl.push('MyjobsListPage');
   }
 
   onOfferJobs(): void {

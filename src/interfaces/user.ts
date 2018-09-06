@@ -1,13 +1,8 @@
-export interface Employer {
+export interface UserInterface {
     name: string;
     phone: string;
     address: string;
-}
-
-export interface Employee {
-    name: string;
-    phone: string;
-    address: string;
-    socialSecurity: string;
+    type: string;
+    ssn?: string;
     rating: number;
 }
