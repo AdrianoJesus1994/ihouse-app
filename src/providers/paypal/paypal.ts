@@ -11,8 +11,8 @@ const PROD_ENVIRONMENT = "PayPalEnvironmentProduction";
 export class PaypalProvider {
   constructor(private payPal: PayPal, private dialog: Dialog) { }
 
-  openPayment(amount: string, currency: string, shortDescription: string, intent: string): void {
-    this.payPal.init({
+  openPayment(amount: string, currency: string, shortDescription: string): Promise<any> {
+    return this.payPal.init({
       PayPalEnvironmentProduction: PAYPAL_PRODUCTION_CLIENT_ID,
       PayPalEnvironmentSandbox: PAYPAL_SANDBOX_CLIENT_ID
     }).then(() => {
@@ -21,7 +21,7 @@ export class PaypalProvider {
         // Only needed if you get an "Internal Service Error" after PayPal login!
         //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
       })).then(() => {
-        let payment = new PayPalPayment(amount, currency, shortDescription, intent);
+        let payment = new PayPalPayment(amount, currency, shortDescription, 'job');
         this.payPal.renderSinglePaymentUI(payment).then(() => {
           // Successfully paid
           this.dialog.presentAlert('Payment was successful');
