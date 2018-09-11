@@ -52,6 +52,7 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
     PaypalProvider,
     PayPal,
     AuthProvider,
+    HttpClientModule,
     DatabaseProvider
   ]
 })

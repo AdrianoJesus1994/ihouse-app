@@ -16,7 +16,7 @@ export class RegisterPage {
   type: string = "employer";
   name: string = "";
   email: string = "";
-  ssn: string;
+  ssn: string = "";
   photo: string = "";
   address: string = "";
   phone: string = "";
@@ -49,6 +49,9 @@ export class RegisterPage {
   openCamera(): void {
     const options: CameraOptions = {
       quality: 100,
+      cameraDirection: 1,
+      targetHeight: 400,
+      targetWidth: 400,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -60,12 +63,12 @@ export class RegisterPage {
     });
   }
   private createUser(id: string): void {
-    const fileName = `users/${id}`;
+    const fileName = `${id}`;
     const filePath = `${fileName}.png`;
     if (this.photo) {
       this.file.createFile(this.photo, fileName, true).then((entry) => {
         entry.file((file) => {
-          this.auth.uploadPhoto(filePath, file).then((upload) => {
+          this.auth.uploadPhoto(file).then((upload) => {
             console.log(upload);
           });
         });
@@ -79,6 +82,7 @@ export class RegisterPage {
       phone: this.phone,
       address: this.address,
       type: this.type,
+      urlPhoto: '',
       ssn: this.ssn,
       rating: 5
     });

@@ -3,6 +3,11 @@ page-register {
         background-color: color($colors, verde);
         color: #f6f6f6;
         .body {
+            img{
+                -webkit-border-radius: 100% !important;
+                width: 150px;
+                height: 150px;
+            }
             background-color: #f6f6f6;
             .item.item-block {
                 background: transparent;
