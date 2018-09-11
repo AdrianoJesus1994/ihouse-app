@@ -18,6 +18,7 @@
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -87,6 +88,6 @@
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
-    <engine name="android" spec="6.4.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <engine name="android" spec="7.0.0" />
 </widget>
