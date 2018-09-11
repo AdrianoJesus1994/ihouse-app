@@ -48,6 +48,7 @@ ion-menu {
         img {
             height: 10em;
             width: 10em;
+            -webkit-border-radius: 100% !important;   
         }
     }
     .item.item-block {
