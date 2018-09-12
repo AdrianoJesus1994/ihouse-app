@@ -1,3 +1,4 @@
+import { Base64 } from '@ionic-native/base64';
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -22,6 +23,7 @@ export class RegisterPage {
   phone: string = "";
   password: string = "";
   passwordConfirm: string = "";
+  imgBase64: string = "";
 
   constructor(
     private navCtrl: NavController,
@@ -29,7 +31,8 @@ export class RegisterPage {
     private file: File,
     private dialog: Dialog,
     private auth: AuthProvider,
-    private db: DatabaseProvider
+    private db: DatabaseProvider,
+    private base64: Base64
   ) { }
 
   onRegister(): void {
@@ -58,23 +61,31 @@ export class RegisterPage {
     }
     this.camera.getPicture(options).then((imageData) => {
       this.photo = `${imageData}`;
+      this.base64.encodeFile(imageData).then((imgBase64: string)=>{
+        this.imgBase64 = imgBase64;
+      }).catch(err=>{
+        console.log("Falha ao converte imagem");
+        this.dialog.presentAlert(err);
+      });
     }, (err) => {
       this.dialog.presentAlert(err);
     });
   }
   private createUser(id: string): void {
+    console.log('Create USER::');
     const fileName = `${id}`;
     const filePath = `${fileName}.png`;
-    if (this.photo) {
-      this.file.createFile(this.photo, fileName, true).then((entry) => {
-        entry.file((file) => {
-          this.auth.uploadPhoto(file).then((upload) => {
-            console.log(upload);
-          });
-        });
-      });
-    }
-    this.auth.updateProfile(this.name, filePath).then(() => {
+    // //if (this.photo) {
+    //   this.file.createFile(this.photo, fileName, true).then((entry) => {
+    //     entry.file((file) => {
+    //       this.auth.uploadPhoto(file).then((upload) => {
+    //         console.log(upload);
+    //         urlPhoto = upload;
+    //       });
+    //     });
+    //   });
+    // //}
+    this.auth.updateProfile(this.name, "").then(() => {
       this.navCtrl.setRoot("LoginPage");
     });
     this.db.createUser<UserInterface>(`user/${id}`, {
@@ -82,7 +93,7 @@ export class RegisterPage {
       phone: this.phone,
       address: this.address,
       type: this.type,
-      urlPhoto: '',
+      urlPhoto: this.imgBase64,
       ssn: this.ssn,
       rating: 5
     });

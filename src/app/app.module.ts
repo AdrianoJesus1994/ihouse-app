@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { IonicStorageModule } from '@ionic/storage';
+import { Base64 } from '@ionic-native/base64';
 
 import { MyApp } from './app.component';
 
@@ -39,7 +40,7 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
     AngularFireModule.initializeApp(FIREBASE_OPTIONS),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
@@ -53,7 +54,8 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
     PayPal,
     AuthProvider,
     HttpClientModule,
-    DatabaseProvider
+    DatabaseProvider,
+    Base64
   ]
 })
 export class AppModule { }

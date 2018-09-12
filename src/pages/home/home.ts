@@ -20,6 +20,7 @@ export class HomePage {
     private database: DatabaseProvider
   ) {
     auth.getUser().subscribe((user) => {
+      console.log(user.getIdToken());
       this.name = user.displayName;
     });
   }

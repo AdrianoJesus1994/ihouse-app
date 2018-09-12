@@ -38,9 +38,14 @@ export class DatabaseProvider {
 
   // Employee
 
+  getUserByID<T>(id: string): Observable<T> {
+    return this.db.object<T>(`user/${id}`).valueChanges();
+  }
+
   getEmployees<T>(): Observable<T[]> {
     return this.db.list<T>("employee").valueChanges();
   }
+
   getEmployeeByID<T>(id: string): Observable<T> {
     return this.db.object<T>(`employee/${id}`).valueChanges();
   }
