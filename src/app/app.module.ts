@@ -1,3 +1,4 @@
+import { PayPal } from '@ionic-native/paypal';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -49,7 +50,9 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
     ScreenOrientation,
     Dialog,
     PaypalProvider,
+    PayPal,
     AuthProvider,
+    HttpClientModule,
     DatabaseProvider
   ]
 })

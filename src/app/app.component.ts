@@ -22,10 +22,10 @@ export class MyApp {
   pages: PageInterface[] = [
     { title: 'Home', component: 'HomePage' },
     { title: 'Offer Job', component: 'JobCategoryPage' },
-    { title: 'Search Job', component: 'SearchJobsCatPage' },
+    { title: 'Search Job', component: 'SearchJobsPage' },
     { title: 'My Jobs', component: 'MyjobsListPage' },
-    { title: 'Messages', component: 'MensagensPage' },
-    { title: 'Settings', component: 'HomePage' }
+    { title: 'Messages', component: 'MessagesPage' },
+    { title: 'Settings', component: 'SettingsPage' }
   ];
 
   constructor(
@@ -58,7 +58,8 @@ export class MyApp {
   }
 
   openPage(page: PageInterface): void {
-    this.nav.setRoot(page.component);
+    //this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
 
   onLogout(): void {

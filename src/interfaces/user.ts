@@ -5,4 +5,5 @@ export interface UserInterface {
     type: string;
     ssn?: string;
     rating: number;
+    urlPhoto: string;
 }

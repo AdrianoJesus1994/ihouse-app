@@ -3,10 +3,14 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { auth } from 'firebase';
 import { Observable } from 'rxjs';
+import { HttpClient } from '../../../node_modules/@angular/common/http';
 
 @Injectable()
 export class AuthProvider {
-  constructor(private afAuth: AngularFireAuth, private afStorage: AngularFireStorage) { }
+
+  private urlPostImg: string = 'http://www.continuumweb.com.br/projetos/ihouse/uploadImg.php';
+
+  constructor(private afAuth: AngularFireAuth, private afStorage: AngularFireStorage, private http: HttpClient) { }
 
   login(email: string, password: string): Promise<auth.UserCredential> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
@@ -27,8 +31,21 @@ export class AuthProvider {
     })
   }
 
-  uploadPhoto(path: string, imageData: any): AngularFireUploadTask {
-    return this.afStorage.upload(path, imageData);
+  // uploadPhoto(path: string, imageData: any): AngularFireUploadTask {
+  //   return this.afStorage.upload(path, imageData);
+  // }
+
+  uploadPhoto(imageData: any):Promise<any>{
+    const dataImg = new FormData();
+    dataImg.append('img', imageData);
+    return this.http.post<any>(this.urlPostImg, dataImg).toPromise().then(res=>{
+      console.log(res);
+      return res ? res : false;
+    }).catch(err=>{
+      console.log(err);
+      return;
+    });
+
   }
 
   getPhoto(path: string): Observable<any> {
