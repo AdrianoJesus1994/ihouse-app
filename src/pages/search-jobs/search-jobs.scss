@@ -2,25 +2,32 @@ page-search-jobs {
     .content {
         background: #fff;
     }
-    ion-segment.segment {
+    [tabsPlacement=top]>.tabbar {
         background: #0abab5;
         display: block;
         white-space: nowrap;
+        height: 4.8rem;
         font-size: 0;
-        overflow: auto;
-
+        overflow-x: auto;
+        overflow-y: hidden;
         &::-webkit-scrollbar {
             width: 0;
             height: 0;
             display: none;
         }
-
-        ion-segment-button.segment-button {
-            display: inline-block;
+        .tab-button {
+            display: inline-flex;
+            min-height: 4.8rem;
             min-width: 100px;
             width: auto;
-            color: #2d2d2d80;
+            color: rgba($color: white, $alpha: 0.6);
             text-transform: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .tab-button[aria-selected=true] .tab-button-text {
+            font-weight: bold;
+            color: #fff;
         }
     }
 }

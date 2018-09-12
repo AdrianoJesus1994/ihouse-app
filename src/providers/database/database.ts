@@ -30,6 +30,12 @@ export class DatabaseProvider {
     return this.db.list<T>("jobs").valueChanges();
   }
 
+  getJobsByCategory<T>(categoryID: number): Observable<T[]> {
+    return this.db.list<T>("/jobs", (ref) =>
+      ref.orderByChild('category').equalTo(categoryID)
+    ).valueChanges();
+  }
+
   // Employee
 
   getEmployees<T>(): Observable<T[]> {

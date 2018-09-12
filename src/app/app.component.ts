@@ -58,7 +58,7 @@ export class MyApp {
   }
 
   openPage(page: PageInterface): void {
-    //this.nav.setRoot(page.component);
+    if (page.component === "HomePage") { return; }
     this.nav.push(page.component);
   }
 

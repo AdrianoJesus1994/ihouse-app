@@ -38,7 +38,7 @@ export class AuthProvider {
   uploadPhoto(imageData: any):Promise<any>{
     const dataImg = new FormData();
     dataImg.append('img', imageData);
-    return this.http.post<any>(this.urlPostImg, dataImg).toPromise().then(res=>{
+    return this.http.post(this.urlPostImg, dataImg).toPromise().then(res=>{
       console.log(res);
       return res ? res : false;
     }).catch(err=>{

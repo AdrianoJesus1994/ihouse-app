@@ -1,13 +1,3 @@
-<ion-header>
-  <ion-navbar>
-    <img src="assets/imgs/ihouse_logo.png" width="50%" alt="">
-  </ion-navbar>
-</ion-header>
-<ion-content>
-  <ion-segment [(ngModel)]="category">
-    <ion-segment-button *ngFor="let c of categories" value="{{c}}" (click)="onCategoryChange()">
-      {{c.name}}
-    </ion-segment-button>
-  </ion-segment>
-  <div *ngFor="let job of jobs"></div>
-</ion-content>
+<ion-tabs [selectedIndex]="mySelectedIndex" tabsPlacement="top">
+  <ion-tab root="SearchJobsListPage" [rootParams]="c" [tabTitle]="c.name" *ngFor="let c of categories"></ion-tab>
+</ion-tabs>
