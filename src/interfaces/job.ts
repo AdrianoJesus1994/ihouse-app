@@ -1,9 +1,9 @@
 import { Category } from "./category";
-import { Employee } from "./user";
+import { UserInterface } from "./user";
 
 export interface Job {
     category: Category,
-    employee?: Employee,
+    employee?: UserInterface,
     hasAccepted: boolean,
     timestamp: number
 }
