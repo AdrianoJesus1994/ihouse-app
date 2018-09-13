@@ -1,6 +1,3 @@
-import { Dialog } from './../providers/dialog/dialog';
-import { Category } from './../interfaces/category';
-import { DatabaseProvider } from './../providers/database/database';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -8,6 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AuthProvider } from '../providers/auth/auth';
 import { DomSanitizer } from '../../node_modules/@angular/platform-browser';
+import { UserInterface } from './../interfaces/user';
+import { Dialog } from './../providers/dialog/dialog';
+import { Category } from './../interfaces/category';
+import { DatabaseProvider } from './../providers/database/database';
 
 export interface PageInterface {
   title: string;
@@ -51,13 +52,8 @@ export class MyApp {
       }
       auth.getUser().subscribe((user) => {
         if (user && user.emailVerified) {
-          // if (user.photoURL !== "" && user.photoURL !== null) {
-          //   this.auth.getPhoto(user.photoURL).subscribe((url) => {
-          //     this.photo = url;
-          //   });
-          // }
-          this.database.getUserByID<any>(user.uid).subscribe((userData)=>{
-            this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(userData.urlPhoto) || 'assets/icon/photo.svg';
+          this.database.getUserByID<UserInterface>(user.uid).subscribe((userData)=>{
+            this.photo = !!userData.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(userData.urlPhoto) : 'assets/icon/photo.svg';
           });
           this.rootPage = "HomePage";
         } else {
