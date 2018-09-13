@@ -7,6 +7,9 @@
 
 <ion-content padding>
   <div class="elevation-content">
+    <ion-avatar (click)="onUpdatePhoto()">
+      <img [src]="photoURL" />
+    </ion-avatar>
     <ion-list>
       <!-- Name -->
       <button ion-item icon-end *ngIf="!editName" (click)="onName()">
