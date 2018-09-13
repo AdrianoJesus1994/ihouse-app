@@ -23,6 +23,10 @@ export class AuthProvider {
   register(email: string, password: string): Promise<auth.UserCredential> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
+  
+  updatePassword(password: string): Promise<void> {
+    return this.afAuth.auth.currentUser.updatePassword(password);
+  }
 
   updateProfile(displayName: string, photoURL: string): Promise<void> {
     return this.afAuth.auth.currentUser.updateProfile({

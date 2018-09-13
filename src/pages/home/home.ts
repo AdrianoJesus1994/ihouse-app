@@ -42,8 +42,9 @@ export class HomePage {
   }
 
   onSearchJobs(): void {
+    const me = this;
     this.database.getCategories<Category>().subscribe((categories) => {
-      this.navCtrl.push('SearchJobsPage', { categories: categories });
-    }, (err) => this.dialog.presentAlert(err.message));
+      me.navCtrl.push('SearchJobsPage', { categories: categories });
+    }, (err) => me.dialog.presentAlert(err.message));
   }
 }

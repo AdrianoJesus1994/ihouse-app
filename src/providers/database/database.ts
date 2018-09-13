@@ -15,6 +15,10 @@ export class DatabaseProvider {
   createUser<T>(path: string, user: T): void {
     this.db.object<T>(path).set(user);
   }
+  updateUser<T>(id: string, params: any): Promise<void> {
+    const ref = this.db.object<T>(`user/${id}`);
+    return ref.update(params);
+  }
 
   // Job
 
@@ -43,19 +47,19 @@ export class DatabaseProvider {
   }
 
   getEmployees<T>(): Observable<T[]> {
-    return this.db.list<T>("employee").valueChanges();
+    return this.db.list<T>("user").valueChanges();
   }
 
   getEmployeeByID<T>(id: string): Observable<T> {
-    return this.db.object<T>(`employee/${id}`).valueChanges();
+    return this.db.object<T>(`user/${id}`).valueChanges();
   }
 
   // Employer
 
   getEmployers<T>(): Observable<T[]> {
-    return this.db.list<T>("employer").valueChanges();
+    return this.db.list<T>("user").valueChanges();
   }
   getEmployerByID<T>(id: string): Observable<T> {
-    return this.db.object<T>(`employer/${id}`).valueChanges();
+    return this.db.object<T>(`user/${id}`).valueChanges();
   }
 }
