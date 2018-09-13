@@ -1,3 +1,4 @@
+import { Device } from '@ionic-native/device';
 import { PayPal } from '@ionic-native/paypal';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BrowserModule } from '@angular/platform-browser';
@@ -55,7 +56,8 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
     AuthProvider,
     HttpClientModule,
     DatabaseProvider,
-    Base64
+    Base64,
+    Device
   ]
 })
 export class AppModule { }
