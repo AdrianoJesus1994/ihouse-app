@@ -3,10 +3,19 @@ page-register {
         background-color: color($colors, verde);
         color: #f6f6f6;
         .body {
-            img{
-                -webkit-border-radius: 100% !important;
-                width: 150px;
-                height: 150px;
+            ion-avatar {
+                margin: auto;
+                & {
+                    height: 10em;
+                    width: 10em;
+                    overflow: hidden;
+                    border-radius: 100% !important;
+                    background-size: cover!important;
+                    border: 0.5em solid #f6f6f6;
+                }
+                img {
+                    width: 100%;   
+                }
             }
             background-color: #f6f6f6;
             .item.item-block {

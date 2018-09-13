@@ -37,18 +37,20 @@ ion-app.md [padding] .scroll-content {
 }
 
 ion-menu {
+
     ion-avatar {
+        margin: auto;
         & {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            border-bottom: 1px solid rgba(45, 45, 45, 0.2);
+            height: 10em;
+            width: 10em;    
+            margin-top: 3em;
+            overflow: hidden;
+            border-radius: 100% !important;
+            background-size: cover!important;
+            border: 0.5em solid #f6f6f6;
         }
         img {
-            height: 10em;
-            width: 10em;
-            -webkit-border-radius: 100% !important;   
+            width: 100%;   
         }
     }
     .item.item-block {

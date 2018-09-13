@@ -134,8 +134,8 @@ export class SettingsPage {
     }
     this.camera.getPicture(options).then((imageData) => {
       this.base64.encodeFile(imageData).then((imgBase64: string)=>{
-        this.photo = imgBase64;
-        this.photoURL = this.sanitizer.bypassSecurityTrustResourceUrl(imgBase64);
+        this.photo = !!imgBase64 ? imageData : this.photoURL;
+        this.photoURL = !!imgBase64 ? this.sanitizer.bypassSecurityTrustResourceUrl(imgBase64) : this.photoURL;
         this.updateUser();
       }).catch(err=>{
         console.log("Falha ao converte imagem");
