@@ -9,6 +9,7 @@ import { UserInterface } from './../interfaces/user';
 import { Dialog } from './../providers/dialog/dialog';
 import { Category } from './../interfaces/category';
 import { DatabaseProvider } from './../providers/database/database';
+import { Device } from '@ionic-native/device'
 
 export interface PageInterface {
   title: string;
@@ -41,7 +42,8 @@ export class MyApp {
     private database: DatabaseProvider,
     private auth: AuthProvider,
     public dialog: Dialog,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private device: Device
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -55,6 +57,11 @@ export class MyApp {
           this.database.getUserByID<UserInterface>(user.uid).subscribe((userData)=>{
             this.photo = !!userData.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(userData.urlPhoto) : 'assets/icon/photo.svg';
           });
+
+          this.database.updateUser(user.uid,{
+            uuid: this.device.uuid
+          })
+
           this.rootPage = "HomePage";
         } else {
           this.rootPage = "LoginPage";

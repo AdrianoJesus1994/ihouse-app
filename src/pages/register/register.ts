@@ -95,7 +95,8 @@ export class RegisterPage {
       type: this.type,
       urlPhoto: this.imgBase64,
       ssn: this.ssn,
-      rating: 5
+      rating: 5,
+      uuid: ''
     });
   }
 }

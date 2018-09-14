@@ -6,4 +6,5 @@ export interface UserInterface {
     ssn?: string;
     rating: number;
     urlPhoto: string;
+    uuid: string;
 }
