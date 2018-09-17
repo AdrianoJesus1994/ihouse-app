@@ -90,6 +90,18 @@
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>need camera access to take pictures</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+        <string>need photo library access to get pictures from there</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+        <string>need location access to find things nearby</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+        <string>need photo library access to save pictures there</string>
+    </edit-config>
     <engine name="android" spec="^7.1.1" />
     <engine name="ios" spec="4.5.5" />
 </widget>

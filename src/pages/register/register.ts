@@ -1,8 +1,7 @@
 import { Base64 } from '@ionic-native/base64';
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, normalizeURL } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
 import { Dialog } from '../../providers/dialog/dialog';
 import { AuthProvider } from '../../providers/auth/auth';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -28,7 +27,6 @@ export class RegisterPage {
   constructor(
     private navCtrl: NavController,
     private camera: Camera,
-    private file: File,
     private dialog: Dialog,
     private auth: AuthProvider,
     private db: DatabaseProvider,
@@ -55,15 +53,16 @@ export class RegisterPage {
       cameraDirection: 1,
       targetHeight: 400,
       targetWidth: 400,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
     this.camera.getPicture(options).then((imageData) => {
-      this.photo = `${imageData}`;
-      this.base64.encodeFile(imageData).then((imgBase64: string)=>{
+      this.photo = "data:image/jpeg;base64," + imageData;  
+      this.base64.encodeFile(this.photo).then((imgBase64: string) => {
+        console.log("encodeFile", imgBase64);
         this.imgBase64 = imgBase64;
-      }).catch(err=>{
+      }).catch(err => {
         console.log("Falha ao converte imagem");
         this.dialog.presentAlert(err);
       });
@@ -73,18 +72,6 @@ export class RegisterPage {
   }
   private createUser(id: string): void {
     console.log('Create USER::');
-    const fileName = `${id}`;
-    const filePath = `${fileName}.png`;
-    // //if (this.photo) {
-    //   this.file.createFile(this.photo, fileName, true).then((entry) => {
-    //     entry.file((file) => {
-    //       this.auth.uploadPhoto(file).then((upload) => {
-    //         console.log(upload);
-    //         urlPhoto = upload;
-    //       });
-    //     });
-    //   });
-    // //}
     this.auth.updateProfile(this.name, "").then(() => {
       this.navCtrl.setRoot("LoginPage");
     });
