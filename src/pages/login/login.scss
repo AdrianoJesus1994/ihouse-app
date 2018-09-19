@@ -74,4 +74,9 @@ page-login {
             }
         }
     }
+    .button.button-menu-toggle {
+        position: absolute;
+        z-index: 9;
+        color: #fff;
+    }
 }

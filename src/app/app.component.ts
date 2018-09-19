@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -10,8 +10,10 @@ import { Dialog } from './../providers/dialog/dialog';
 import { Category } from './../interfaces/category';
 import { DatabaseProvider } from './../providers/database/database';
 import { Device } from '@ionic-native/device'
+import { TranslateService } from '@ngx-translate/core';
 
 export interface PageInterface {
+  icon: string;
   title: string;
   component: string;
 }
@@ -22,16 +24,17 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  language: string;
   rootPage: string;
   photo;
 
   pages: PageInterface[] = [
-    { title: 'Home', component: 'HomePage' },
-    { title: 'Offer Job', component: 'JobCategoryPage' },
-    { title: 'Search Job', component: 'SearchJobsPage' },
-    { title: 'My Jobs', component: 'MyjobsListPage' },
-    { title: 'Messages', component: 'MessagesPage' },
-    { title: 'Settings', component: 'SettingsPage' }
+    { icon: "home", title: 'HOME', component: 'HomePage' },
+    { icon: "create", title: 'OFFER_JOB', component: 'JobCategoryPage' },
+    { icon: "search", title: 'SEARCH_JOB', component: 'SearchJobsPage' },
+    { icon: "person", title: 'MY_JOBS', component: 'MyjobsListPage' },
+    { icon: "mail", title: 'MESSAGES', component: 'MessagesPage' },
+    { icon: "settings", title: 'SETTINGS', component: 'SettingsPage' }
   ];
 
   constructor(
@@ -43,22 +46,25 @@ export class MyApp {
     private auth: AuthProvider,
     public dialog: Dialog,
     public sanitizer: DomSanitizer,
-    private device: Device
+    private device: Device,
+    private config: Config,
+    private translate: TranslateService
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#0abab5');
       splashScreen.hide();
+      this.initTranslate();
       if (platform.is('mobile') && !platform.is('mobileweb')) {
         screen.lock(screen.ORIENTATIONS.PORTRAIT);
       }
       auth.getUser().subscribe((user) => {
         if (user && user.emailVerified) {
-          this.database.getUserByID<UserInterface>(user.uid).subscribe((userData)=>{
+          this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
             this.photo = !!userData.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(userData.urlPhoto) : 'assets/icon/photo.svg';
           });
 
-          this.database.updateUser(user.uid,{
+          this.database.updateUser(user.uid, {
             uuid: this.device.uuid
           })
 
@@ -70,14 +76,31 @@ export class MyApp {
     });
   }
 
+  private initTranslate(): void {
+    // Set the default language for translation strings, and the current language.
+    this.translate.setDefaultLang('en');
+    const browserLang = this.translate.getBrowserLang();
+
+    if (browserLang) {
+      if (browserLang !== 'pt-BR' && browserLang !== 'en') {
+        this.translate.use('en');
+      } else {
+        this.translate.use(this.translate.getBrowserLang());
+      }
+    } else {
+      this.translate.use('en'); // Set your language here
+    }
+    this.language = this.translate.currentLang;
+  }
+
   openPage(page: PageInterface): void {
-    if(page.component === "SearchJobsPage"){
+    if (page.component === "SearchJobsPage") {
       this.database.getCategories<Category>().subscribe((categories) => {
         this.nav.push('SearchJobsPage', { categories: categories });
       }, (err) => this.dialog.presentAlert(err.message));
-    }else if (page.component === "HomePage") { 
+    } else if (page.component === "HomePage") {
       this.nav.setRoot(page.component);
-    }else{
+    } else {
       this.nav.push(page.component);
     }
   }
@@ -86,5 +109,9 @@ export class MyApp {
     this.nav.setRoot('LoginPage').then(() => {
       this.auth.logout();
     });
+  }
+
+  changeLanguage(): void {
+    this.translate.use(this.language);
   }
 }

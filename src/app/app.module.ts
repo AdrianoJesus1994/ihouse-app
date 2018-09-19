@@ -6,7 +6,9 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule, FirebaseOptions } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
@@ -31,6 +33,10 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
   messagingSenderId: "720602884263"
 };
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [MyApp],
   imports: [
@@ -42,6 +48,13 @@ const FIREBASE_OPTIONS: FirebaseOptions = {
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],

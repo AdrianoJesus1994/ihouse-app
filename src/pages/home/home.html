@@ -9,27 +9,27 @@
 <ion-content padding>
   <div class="elevation-content">
     <div class="content-title">
-      <b>Welcome</b><br/>{{name}}
+      <b>{{'WELCOME' | translate }}</b><br/>{{name}}
     </div>
     <ion-row>
       <ion-col (click)="onOfferJobs()">
-        <img src="assets/icon/offer-job.svg" />Offer Job
+        <img src="assets/icon/offer-job.svg" />{{'OFFER_JOB' | translate }}
       </ion-col>
       <ion-col (click)="onSearchJobs()">
-        <img src="assets/icon/search-job.svg" />Search Job
+        <img src="assets/icon/search-job.svg" />{{'SEARCH_JOB' | translate }}
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col (click)="onSettings()">
-        <img src="assets/icon/settings.svg" />Settings
+        <img src="assets/icon/settings.svg" />{{'SETTINGS' | translate }}
       </ion-col>
       <ion-col (click)="onMyJobs()">
-        <img src="assets/icon/my-jobs.svg" />My Jobs
+        <img src="assets/icon/my-jobs.svg" />{{'MY_JOBS' | translate }}
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col (click)="onMensagens()">
-        <img src="assets/icon/messages.svg" />Messages
+        <img src="assets/icon/messages.svg" />{{'MESSAGES' | translate }}
       </ion-col>
     </ion-row>
   </div>

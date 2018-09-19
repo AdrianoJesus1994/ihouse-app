@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Dialog } from '../../providers/dialog/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @IonicPage()
 @Component({
@@ -9,6 +10,7 @@ import { Dialog } from '../../providers/dialog/dialog';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  language: string;
   email: string = "";
   password: string = "";
   zipCode: string = "";
@@ -17,8 +19,11 @@ export class LoginPage {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private dialog: Dialog,
-    private auth: AuthProvider
-  ) { }
+    private auth: AuthProvider,
+    private translate: TranslateService
+  ) {
+    this.language = this.translate.currentLang;
+  }
 
   onLogin(): void {
     this.dialog.showLoading();
@@ -55,5 +60,7 @@ export class LoginPage {
     });
     alert.present();
   }
-
+  changeLanguage(): void {
+    this.translate.use(this.language);
+  }
 }

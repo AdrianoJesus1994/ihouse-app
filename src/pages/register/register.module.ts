@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { RegisterPage } from './register';
@@ -9,7 +10,8 @@ import { MaskDirectiveModule } from '../../directives/mask/mask';
   declarations: [RegisterPage],
   imports: [
     MaskDirectiveModule,
-    IonicPageModule.forChild(RegisterPage)
+    IonicPageModule.forChild(RegisterPage),
+    TranslateModule.forChild()
   ],
   providers: [Camera, File]
 })
