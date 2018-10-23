@@ -23,6 +23,7 @@ export class RegisterPage {
   password: string = "";
   passwordConfirm: string = "";
   imgBase64: string = "";
+  isAutorized: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -83,7 +84,8 @@ export class RegisterPage {
       urlPhoto: this.imgBase64,
       ssn: this.ssn,
       rating: 5,
-      uuid: ''
+      uuid: '',
+      isAutorized: this.isAutorized
     });
   }
 }

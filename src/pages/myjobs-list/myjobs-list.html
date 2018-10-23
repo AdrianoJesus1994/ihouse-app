@@ -6,8 +6,8 @@
 <ion-content no-padding padding-left padding-right>
   <div class="body">
     <ion-item *ngIf="myJobs.length == 0">
-      <h1>Please!</h1>
-      <h3>You still don't have jobs</h3>
+      <h1>{{'PLEASE' | translate}}!</h1>
+      <h3>{{'DONT_JOBS' | translate}}</h3>
     </ion-item>
     <ion-list *ngIf="myJobs">
       <ion-item *ngFor="let job of myJobs" (click)="onVerDetalhes(job)">

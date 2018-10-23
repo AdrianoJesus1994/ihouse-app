@@ -21,5 +21,8 @@
     "ADDRESS": "Dirección",
     "PHONE_NUMBER": "Número de teléfono",
     "CONFIRM_PASSWORD": "Confirmar Contraseña",
-    "REGISTER": "Registro"
+    "REGISTER": "Registro",
+    "PLEASE" : "Excusa",
+    "NO_MESSAGES" : "No hay mensajes",
+    "DONT_JOBS" : "You still don't have jobs"
 }

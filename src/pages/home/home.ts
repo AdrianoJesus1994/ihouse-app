@@ -1,5 +1,6 @@
+import { UserInterface } from './../../interfaces/user';
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Category } from '../../interfaces/category';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -12,16 +13,24 @@ import { Dialog } from '../../providers/dialog/dialog';
 })
 export class HomePage {
   public name: string = "";
+  public isAutorized: boolean;
+  public userData: UserInterface;
 
   constructor(
     private navCtrl: NavController,
     auth: AuthProvider,
+    private dataBase: DatabaseProvider,
     private dialog: Dialog,
-    private database: DatabaseProvider
+    private database: DatabaseProvider,
+    private navParams: NavParams
   ) {
     auth.getUser().subscribe((user) => {
       console.log(user.getIdToken());
       this.name = user.displayName;
+      this.database.getUserByID<any>(user.uid).subscribe((userData) => {
+        console.log("USER ::", user);
+        this.userData = userData;
+      })
     });
   }
 

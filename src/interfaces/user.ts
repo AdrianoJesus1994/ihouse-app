@@ -7,4 +7,5 @@ export interface UserInterface {
     rating: number;
     urlPhoto: string;
     uuid: string;
+    isAutorized: boolean;
 }

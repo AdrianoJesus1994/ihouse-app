@@ -21,5 +21,8 @@
     "ADDRESS": "Endereço",
     "PHONE_NUMBER": "Telefone de contato",
     "CONFIRM_PASSWORD": "Confirmar Senha",
-    "REGISTER": "Cadastrar"
+    "REGISTER": "Cadastrar",
+    "PLEASE" : "Desculpe",
+    "NO_MESSAGES" : "Nenhuma mensagem pra você",
+    "DONT_JOBS" : "Você não tem nenhum trabalho"
 }
