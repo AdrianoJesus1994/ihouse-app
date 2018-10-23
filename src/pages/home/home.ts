@@ -27,10 +27,8 @@ export class HomePage {
     auth.getUser().subscribe((user) => {
       console.log(user.getIdToken());
       this.name = user.displayName;
-      this.database.getUserByID<any>(user.uid).subscribe((userData) => {
-        console.log("USER ::", user);
-        this.userData = userData;
-      })
+      this.userData = this.navParams.data;
+      console.log("USER", this.userData);
     });
   }
 

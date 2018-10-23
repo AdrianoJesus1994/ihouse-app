@@ -24,5 +24,7 @@
     "REGISTER": "Cadastrar",
     "PLEASE" : "Desculpe",
     "NO_MESSAGES" : "Nenhuma mensagem pra você",
-    "DONT_JOBS" : "Você não tem nenhum trabalho"
+    "DONT_JOBS" : "Você não tem nenhum trabalho",
+    "USER_BLOCK" : "Usuário bloqueado!",
+    "AWAIT" : "Aguarde o desbloqueio."
 }

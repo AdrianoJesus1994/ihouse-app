@@ -26,6 +26,7 @@ export class MyApp {
 
   language: string;
   rootPage: string;
+  isAutorized: boolean;
   photo;
 
   pages: PageInterface[] = [
@@ -62,6 +63,7 @@ export class MyApp {
         if (user && user.emailVerified) {
           this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
             this.photo = !!userData.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(userData.urlPhoto) : 'assets/icon/photo.svg';
+            this.isAutorized = userData.isAutorized;
           });
 
           this.database.updateUser(user.uid, {

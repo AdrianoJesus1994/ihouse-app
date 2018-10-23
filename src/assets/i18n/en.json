@@ -24,5 +24,7 @@
     "REGISTER": "Register",
     "PLEASE" : "Please",
     "NO_MESSAGES" : "No messages for you",
-    "DONT_JOBS" : "You still don't have jobs"
+    "DONT_JOBS" : "You still don't have jobs",
+    "USER_BLOCK" : "User blocked!",
+    "AWAIT" : "Wait for the unlock."
 }

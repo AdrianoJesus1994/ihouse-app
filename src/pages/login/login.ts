@@ -1,3 +1,5 @@
+import { UserInterface } from './../../interfaces/user';
+import { DatabaseProvider } from './../../providers/database/database';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
@@ -20,7 +22,8 @@ export class LoginPage {
     private alertCtrl: AlertController,
     private dialog: Dialog,
     private auth: AuthProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private database: DatabaseProvider
   ) {
     this.language = this.translate.currentLang;
   }
@@ -31,7 +34,9 @@ export class LoginPage {
       .then((credential) => {
         this.dialog.hideLoading();
         if (credential.user.emailVerified) {
-          this.navCtrl.setRoot("HomePage");
+          this.database.getUserByID<UserInterface>(credential.user.uid).subscribe((userData) => {
+            this.navCtrl.setRoot("HomePage", userData);
+          })
         } else {
           this.dialog.presentConfirm(
             'You need to verify your e-mail',

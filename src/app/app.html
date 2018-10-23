@@ -8,7 +8,7 @@
     <ion-avatar *ngIf="rootPage == 'HomePage'">
       <img [src]="photo" />
     </ion-avatar>
-    <ion-list *ngIf="rootPage == 'HomePage'">
+    <ion-list *ngIf="rootPage == 'HomePage' && isAutorized">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title | translate}}
       </button>
