@@ -1,3 +1,4 @@
+import { Category } from './category';
 export interface UserInterface {
     name: string;
     phone: string;
@@ -8,4 +9,5 @@ export interface UserInterface {
     urlPhoto: string;
     uuid: string;
     isAutorized: boolean;
+    skills: Category[];
 }

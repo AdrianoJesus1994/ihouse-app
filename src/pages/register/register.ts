@@ -1,3 +1,4 @@
+import { Category } from './../../interfaces/category';
 import { Base64 } from '@ionic-native/base64';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, normalizeURL } from 'ionic-angular';
@@ -24,6 +25,9 @@ export class RegisterPage {
   passwordConfirm: string = "";
   imgBase64: string = "";
   isAutorized: boolean = false;
+  skills: Category[] = [];
+  categories: Category[] = [];
+  selectOptions;
 
   constructor(
     private navCtrl: NavController,
@@ -32,7 +36,29 @@ export class RegisterPage {
     private auth: AuthProvider,
     private db: DatabaseProvider,
     private base64: Base64
-  ) { }
+  ) {
+    this.selectOptions = {
+      title: 'Select your skills',
+      subTitle: '',
+      mode: 'md'
+    };
+  }
+
+  ionViewCanEnter(){
+    return this.db.getCategories<Category>().subscribe((res) => {
+      this.dialog.hideLoading();
+      this.categories = res;
+      return true;
+    }, (err) => {
+      console.log(err);
+      this.dialog.presentAlert(err.message);
+      return false;
+    })
+  }
+
+  compareFn(e1: Category, e2: Category): boolean {
+    return e1 && e2 ? e1.id === e2.id : e1 === e2;
+  }  
 
   onRegister(): void {
     if (this.password !== this.passwordConfirm) {
@@ -85,7 +111,8 @@ export class RegisterPage {
       ssn: this.ssn,
       rating: 5,
       uuid: '',
-      isAutorized: this.isAutorized
+      isAutorized: this.isAutorized,
+      skills: this.skills
     });
   }
 }

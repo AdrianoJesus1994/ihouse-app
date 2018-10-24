@@ -26,5 +26,6 @@
     "NO_MESSAGES" : "No messages for you",
     "DONT_JOBS" : "You still don't have jobs",
     "USER_BLOCK" : "User blocked!",
-    "AWAIT" : "Wait for the unlock."
+    "AWAIT" : "Wait for the unlock.",
+    "SELECT_SKILLS" : "Select your skills"
 }

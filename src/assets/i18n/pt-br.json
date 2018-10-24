@@ -26,5 +26,6 @@
     "NO_MESSAGES" : "Nenhuma mensagem pra você",
     "DONT_JOBS" : "Você não tem nenhum trabalho",
     "USER_BLOCK" : "Usuário bloqueado!",
-    "AWAIT" : "Aguarde o desbloqueio."
+    "AWAIT" : "Aguarde o desbloqueio.",
+    "SELECT_SKILLS" : "Selecione suas habilidades"
 }

@@ -51,6 +51,14 @@
         <ion-input type="tel" mask="(99) 9999-9999" [(ngModel)]="phone" placeholder="{{'PHONE_NUMBER' | translate}}"></ion-input>
       </ion-item>
     </ion-row>
+    <ion-row *ngIf="type == 'employee'">
+      <ion-item>
+          <ion-label floating>{{ 'SELECT_SKILLS' | translate}}</ion-label>
+          <ion-select multiple="true" [selectOptions]="selectOptions" [compareWith]="compareFn" [(ngModel)]="skills">
+            <ion-option *ngFor="let skill of categories" [value]="skill">{{skill.name}}</ion-option>
+          </ion-select>
+      </ion-item>
+    </ion-row>
     <ion-row>
       <ion-item>
         <ion-input type="password" [(ngModel)]="password" placeholder="{{'PASSWORD' | translate}}"></ion-input>
