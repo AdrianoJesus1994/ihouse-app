@@ -5,5 +5,6 @@ export interface Job {
     category: Category,
     employee?: UserInterface,
     hasAccepted: boolean,
-    timestamp: number
+    timestamp: number,
+    paid: boolean;
 }

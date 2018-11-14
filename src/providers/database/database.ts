@@ -22,8 +22,8 @@ export class DatabaseProvider {
 
   // Job
 
-  createJob<T>(path: string, job: T): void {
-    this.db.object<T>(path).set(job);
+  createJob<T>(id: string, job: T): void {
+    this.db.object<T>(`jobs/${id}`).set(job);
   }
 
   getJobsByEmployer<T>(id: string): Observable<T[]> {
@@ -47,7 +47,9 @@ export class DatabaseProvider {
   }
 
   getEmployees<T>(): Observable<T[]> {
-    return this.db.list<T>("user").valueChanges();
+    return this.db.list<T>("user", (res) =>
+      res.orderByChild('type').equalTo('employee')
+    ).valueChanges();
   }
 
   getEmployeeByID<T>(id: string): Observable<T> {

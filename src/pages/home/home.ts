@@ -28,6 +28,12 @@ export class HomePage {
       console.log(user.getIdToken());
       this.name = user.displayName;
       this.userData = this.navParams.data;
+      if(this.userData == null){
+        this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
+          console.log(user);
+          this.userData = userData;
+        });
+      }
       console.log("USER", this.userData);
     });
   }
