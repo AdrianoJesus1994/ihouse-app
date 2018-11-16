@@ -19,6 +19,7 @@
       <div align="center">
         <h1>Mr. {{name}}</h1>
         <p>This was your job</p>
+        <p *ngIf="paymentOK">Payment OK!</p>
       </div>
     </ion-item>
     <ion-item lines no-padding>
@@ -56,12 +57,22 @@
       </div>
     </ion-row>
     <br>
-    <p>Pay with:</p>
-    <ion-row class="paid" padding>
-      <div class="paid-mode" (click)="onPayment()">
-        <b>PayPal</b>
-      </div>
-    </ion-row>
+    <div *ngIf="!paymentOK">
+      <p>Pay with:</p>
+      <ion-row class="paid" padding>
+        <div class="paid-mode" (click)="onPayment()">
+          <b>PayPal</b>
+        </div>
+      </ion-row>
+    </div>
+    <div *ngIf="paymentOK">
+        <p style="text-align: center">We are looking for a worker for your job</p>
+        <ion-row class="paid ok" padding>
+          <div class="paid-mode" (click)="paymentFinish()">
+            <b>Ok</b>
+          </div>
+        </ion-row>
+    </div>
   </div>
 
 </ion-content>

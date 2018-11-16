@@ -1,4 +1,4 @@
-page-invite {
+page-job-invite {
     .content {
         background: #0abab5;
     }
@@ -15,8 +15,39 @@ page-invite {
         }
         div.description-content {
             width: auto;
-            div {
+            span {
                 width: auto;
+                &.description{
+                    font-size: 2rem;
+                    font-weight: bold;
+                    text-align: center;
+                    width: 100%;
+                    span{
+                        color: #0abab5;
+                    }
+                }
+            }
+        }
+        .paid{
+            margin: auto;
+            background-color: color($colors, primary);
+            width: 20em;
+            height: 4em;
+            border-radius: 4em;
+            margin-top: 1em;
+
+            &.acept{
+                background-color: color($colors, verde);
+            }
+            
+            &.decline{
+                background-color: color($colors, danger);
+            }
+
+            .paid-mode{
+                margin: auto;
+                color: color($colors, light);
+                font-size: 18px;
             }
         }
     }

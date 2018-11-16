@@ -112,7 +112,8 @@ export class RegisterPage {
       rating: 5,
       uuid: '',
       isAutorized: this.isAutorized,
-      skills: this.skills
+      skills: this.skills,
+      id: id
     });
   }
 }

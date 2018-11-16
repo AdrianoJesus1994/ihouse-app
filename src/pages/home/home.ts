@@ -1,3 +1,4 @@
+import { Job } from './../../interfaces/job';
 import { UserInterface } from './../../interfaces/user';
 import { Component } from '@angular/core';
 import { NavController, IonicPage, NavParams } from 'ionic-angular';
@@ -15,27 +16,55 @@ export class HomePage {
   public name: string = "";
   public isAutorized: boolean;
   public userData: UserInterface;
+  public userID: string;
 
   constructor(
     private navCtrl: NavController,
-    auth: AuthProvider,
+    private auth: AuthProvider,
     private dataBase: DatabaseProvider,
     private dialog: Dialog,
     private database: DatabaseProvider,
     private navParams: NavParams
   ) {
-    auth.getUser().subscribe((user) => {
-      console.log(user.getIdToken());
-      this.name = user.displayName;
-      this.userData = this.navParams.data;
-      if(this.userData == null){
-        this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
-          console.log(user);
-          this.userData = userData;
-        });
+    this.loadData()  
+  }
+
+  async loadData(){
+    this.auth.getUser().subscribe((user) => {
+      if(user){
+        this.name = user.displayName || "";
+        this.userData = this.navParams.data;
+        this.userID = user.uid;
+        if(this.userData == null){
+          this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
+            console.log(user);
+            this.userData = userData;
+          });
+        }
+        console.log("USER", this.userData);
+        this.load(this.userData);
       }
-      console.log("USER", this.userData);
     });
+  }
+
+  load(userData: UserInterface){
+    if(userData.type === 'employee'){
+      if(userData.skills){
+        userData.skills.forEach(e =>{
+          this.dataBase.getJobsByCategory<Job>(e.id).subscribe((job) => {
+            if(job){
+              job.forEach(j => {
+                console.log("JOB HOME", j);
+                if(!j.employee.name)
+                  this.dialog.presentConfirmInvite('New job for you!', j.category.name, ()=> {
+                    this.navCtrl.push('JobInvitePage', {job: j});
+                  });
+              })
+            }
+          })
+        })
+      }
+    }
   }
 
   onMensagens(): void {
@@ -43,7 +72,8 @@ export class HomePage {
   }
 
   onMyJobs(): void {
-    this.navCtrl.push('MyjobsListPage');
+    console.log(this.userID);
+    this.navCtrl.push('MyjobsListPage', {userId: this.userID});
   }
 
   onOfferJobs(): void {

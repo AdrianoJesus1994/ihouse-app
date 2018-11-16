@@ -17,11 +17,13 @@ export class SearchJobsListPage {
 
   constructor(navParams: NavParams, private dialog: Dialog, private database: DatabaseProvider) {
     this.category = navParams.data;
+    console.log(this.category);
     this.fetchJobs();
   }
   private fetchJobs(): void {
     this.database.getJobsByCategory<Job>(this.category.id).subscribe((jobs) => {
       this.jobs = jobs;
+      console.log(this.jobs);
     });
   }
 }

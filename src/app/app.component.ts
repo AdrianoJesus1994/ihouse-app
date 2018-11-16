@@ -11,6 +11,7 @@ import { Category } from './../interfaces/category';
 import { DatabaseProvider } from './../providers/database/database';
 import { Device } from '@ionic-native/device'
 import { TranslateService } from '@ngx-translate/core';
+import { ThrowStmt } from '@angular/compiler';
 
 export interface PageInterface {
   icon: string;
@@ -103,7 +104,8 @@ export class MyApp {
         this.nav.push('SearchJobsPage', { categories: categories });
       }, (err) => this.dialog.presentAlert(err.message));
     } else if (page.component === "HomePage") {
-      this.nav.setRoot(page.component);
+      //this.nav.setRoot(page.component);
+      this.nav.popToRoot();
     } else {
       this.nav.push(page.component);
     }

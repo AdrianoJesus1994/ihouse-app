@@ -38,6 +38,10 @@ export class Dialog {
     this.showAlert({ title: title, subTitle: subTitle, buttons: ['Cancel', { text: 'Resend', handler: handler }] });
   }
 
+  presentConfirmInvite(title: string, subTitle: string, handler: () => void): void {
+    this.showAlert({ title: title, subTitle: subTitle, buttons: ['Cancel', { text: 'Ok', handler: handler }] });
+  }
+
   private showAlert(opts: AlertOptions): void {
     if (!!this.loading) this.hideLoading();
     if (!!this.alert) this.hideAlert();

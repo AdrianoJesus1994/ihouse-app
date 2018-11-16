@@ -17,6 +17,7 @@ export class JobPaymentPage {
   employerID: number;
   job: Job;
   idUser: string;
+  paymentOK: boolean = false;
 
   constructor(
     navParams: NavParams,
@@ -33,15 +34,36 @@ export class JobPaymentPage {
     });
   }
 
+  paymentFinish(){
+    this.navCtrl.popToRoot();
+  }
+
   onPayment(): void {
+    console.log(this.employerID.toString());
     this.paypal.openPayment(`${this.job.category.value}`, 'USD', this.job.category.name, () =>{
       this.job.paid = true;
-      this.db.createJob(`${this.employerID}`, this.job);
-      this.navCtrl.push('SelectEmployeePage', {data: this.job, id: this.idUser, displayName: this.name});
-    }).then((res) => {
-        console.log('SUCCESS', res);
-      }).catch((err) => {
-        this.dialog.presentAlert(err);
-      });
+      this.job.employerID = this.employerID.toString()
+      this.job.employee = {
+        name : "",
+        address: '',
+        uuid: '',
+        urlPhoto: '',
+        type: '',
+        skills: null,
+        ssn: '',
+        rating: 0,
+        phone: '',
+        isAutorized: null
+      };
+      this.db.createJob<Job>(this.job);
+      this.paymentOK = true;
+    }, (err) =>{
+      this.dialog.presentAlert(err);
+    })
+    // .then((res) => {
+    //     console.log('SUCCESS', res);
+    //   }).catch((err) => {
+    //     this.dialog.presentAlert(err);
+    //   });
   }
 }

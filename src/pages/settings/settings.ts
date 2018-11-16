@@ -49,16 +49,18 @@ export class SettingsPage {
   ionViewDidLoad(): void {
     this.dialog.showLoading();
     this.auth.getUser().subscribe((val) => {
-      this.database.getEmployeeByID<UserInterface>(val.uid).subscribe((user) => {
-        this.dialog.hideLoading();
-        this.userID = val.uid;
-        this.address = user.address;
-        this.phone = user.phone;
-        this.name = val.displayName;
-        this.photoURL = !!user.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(user.urlPhoto) : 'assets/icon/photo.svg';
-      }, (err) => {
-        this.dialog.hideLoading();
-      });
+      if(val){
+        this.database.getEmployeeByID<UserInterface>(val.uid).subscribe((user) => {
+          this.dialog.hideLoading();
+          this.userID = val.uid;
+          this.address = user.address;
+          this.phone = user.phone;
+          this.name = val.displayName;
+          this.photoURL = !!user.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(user.urlPhoto) : 'assets/icon/photo.svg';
+        }, (err) => {
+          this.dialog.hideLoading();
+        });
+      }
     });
   }
 

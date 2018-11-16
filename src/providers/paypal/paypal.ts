@@ -11,7 +11,7 @@ const PROD_ENVIRONMENT = "PayPalEnvironmentProduction";
 export class PaypalProvider {
   constructor(private payPal: PayPal, private dialog: Dialog) { }
 
-  openPayment(amount: string, currency: string, shortDescription: string, callbackSuccess): Promise<any> {
+  openPayment(amount: string, currency: string, shortDescription: string, callbackSuccess, callbackError): Promise<any> {
     let me = this;
     return callbackSuccess();
     // return this.payPal.init({
@@ -27,6 +27,7 @@ export class PaypalProvider {
 
     //     }, (err) => {
     //       // Error or render dialog closed without being successful
+    //          return callbackError(err);
     //       console.log('ERROR:RENDER', err);
     //     });
     //   }, (err) => {

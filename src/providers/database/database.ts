@@ -22,21 +22,34 @@ export class DatabaseProvider {
 
   // Job
 
-  createJob<T>(id: string, job: T): void {
-    this.db.object<T>(`jobs/${id}`).set(job);
+  createJob<T>(job: T): void {
+    this.db.object<T>(`jobs/${Math.floor(Math.random() * 10000)}`).set(job);
   }
 
   getJobsByEmployer<T>(id: string): Observable<T[]> {
-    return this.db.list<T>(`jobs/${id}`).valueChanges();
+    return this.db.list<T>("/jobs", (ref) => 
+      ref.orderByChild('employerID').equalTo(id)
+    ).valueChanges();
+  }
+
+  getJobsByEmployee<T>(id: string): Observable<T[]> {
+    return this.db.list<T>("/jobs", (ref) => 
+      ref.orderByChild('employee/id').equalTo(id)
+    ).valueChanges();
   }
 
   getJobs<T>(): Observable<T[]> {
     return this.db.list<T>("jobs").valueChanges();
   }
 
+  updateJob<T>(id: string, params: any): Promise<void> {
+    const ref = this.db.object<T>(`jobs/${id}`);
+    return ref.update(params);
+  }
+
   getJobsByCategory<T>(categoryID: number): Observable<T[]> {
     return this.db.list<T>("/jobs", (ref) =>
-      ref.orderByChild('category').equalTo(categoryID)
+      ref.orderByChild('category/id').equalTo(categoryID)
     ).valueChanges();
   }
 
