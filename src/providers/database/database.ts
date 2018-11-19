@@ -22,8 +22,8 @@ export class DatabaseProvider {
 
   // Job
 
-  createJob<T>(job: T): void {
-    this.db.object<T>(`jobs/${Math.floor(Math.random() * 10000)}`).set(job);
+  createJob<T>(id: number, job: T): void {
+    this.db.object<T>(`jobs/${id}`).set(job);
   }
 
   getJobsByEmployer<T>(id: string): Observable<T[]> {

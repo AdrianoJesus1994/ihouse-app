@@ -11,9 +11,8 @@ const PROD_ENVIRONMENT = "PayPalEnvironmentProduction";
 export class PaypalProvider {
   constructor(private payPal: PayPal, private dialog: Dialog) { }
 
-  openPayment(amount: string, currency: string, shortDescription: string, callbackSuccess, callbackError): Promise<any> {
-    let me = this;
-    return callbackSuccess();
+  openPayment(amount: string, currency: string, shortDescription: string, callbackSuccess, callbackError): void {
+    callbackSuccess();
     // return this.payPal.init({
     //   PayPalEnvironmentProduction: PAYPAL_PRODUCTION_CLIENT_ID,
     //   PayPalEnvironmentSandbox: PAYPAL_SANDBOX_CLIENT_ID

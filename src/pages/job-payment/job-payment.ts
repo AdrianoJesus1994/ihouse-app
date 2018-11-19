@@ -55,8 +55,11 @@ export class JobPaymentPage {
         phone: '',
         isAutorized: null
       };
-      this.db.createJob<Job>(this.job);
+      this.dialog.showLoading();
+      console.log(this.job);
+      this.db.createJob<Job>(this.employerID, this.job);
       this.paymentOK = true;
+      this.dialog.hideLoading();
     }, (err) =>{
       this.dialog.presentAlert(err);
     })
