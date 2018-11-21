@@ -30,15 +30,13 @@ export class MyjobsListPage {
         this.database.getUserByID(user.uid).subscribe((u: UserInterface)=>{
           if(u.type == 'employer'){
             this.database.getJobsByEmployer<Job>(user.uid).subscribe((jobs) => {
-              console.log(jobs);
               this.myJobs = jobs;
               this.dialog.hideLoading();
             }, (err) => {
               this.dialog.presentAlert(err.message);
             });
-          } else {
+          } else if(u.type == 'employee') {
             this.database.getJobsByEmployee<Job>(user.uid).subscribe((jobs) => {
-              console.log(jobs);
               this.myJobs = jobs;
               this.dialog.hideLoading();
             }, (err) => {

@@ -22,8 +22,8 @@ export class DatabaseProvider {
 
   // Job
 
-  createJob<T>(id: number, job: T): void {
-    this.db.object<T>(`jobs/${id}`).set(job);
+  createJob<T>(job: T): void {
+    this.db.list<T>(`jobs/`).push(job);
   }
 
   getJobsByEmployer<T>(id: string): Observable<T[]> {

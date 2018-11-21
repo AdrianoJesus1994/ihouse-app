@@ -57,7 +57,7 @@ export class JobPaymentPage {
       };
       this.dialog.showLoading();
       console.log(this.job);
-      this.db.createJob<Job>(this.employerID, this.job);
+      this.db.createJob<Job>(this.job);
       this.paymentOK = true;
       this.dialog.hideLoading();
     }, (err) =>{

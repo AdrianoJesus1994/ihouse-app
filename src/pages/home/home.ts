@@ -24,9 +24,16 @@ export class HomePage {
     private dataBase: DatabaseProvider,
     private dialog: Dialog,
     private database: DatabaseProvider,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private storage: Storage
   ) {
     this.loadData()  
+  }
+
+  ionViewWillEnter(){
+      this.storage.get('isAutorized').then((val)=>{
+        this.isAutorized = val;
+      });
   }
 
   async loadData(){
@@ -37,7 +44,10 @@ export class HomePage {
         this.userID = user.uid;
         if(this.userData == null){
           this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
-            console.log(user);
+            this.storage.get('isAutorized').then((val)=>{
+              this.isAutorized = val ? val : userData.isAutorized;
+              this.storage.setItem('isAutorized', userData.isAutorized ? 'true' : 'false');
+            });
             this.userData = userData;
           });
         }

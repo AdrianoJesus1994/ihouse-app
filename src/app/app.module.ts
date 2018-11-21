@@ -1,3 +1,4 @@
+import { IonicStorageModule } from '@ionic/storage';
 import { Device } from '@ionic-native/device';
 import { PayPal } from '@ionic-native/paypal';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -13,7 +14,6 @@ import { AngularFireModule, FirebaseOptions } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { IonicStorageModule } from '@ionic/storage';
 import { Base64 } from '@ionic-native/base64';
 
 import { MyApp } from './app.component';
@@ -43,6 +43,10 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, { mode: 'md' }),
+    // IonicStorageModule.forRoot({
+    //   name: 'ihouseservice',
+    //   driverOrder: ['sqlite', 'websql', 'indexeddb']
+    // }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(FIREBASE_OPTIONS),
     AngularFireAuthModule,

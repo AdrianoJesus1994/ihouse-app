@@ -46,10 +46,11 @@ export class MyJobContentPage {
   }
 
   completeJob(){
-    if(!!this.myJob.urlPhoto || this.myJob.urlPhoto == ""){
+    if(!!this.myJob.urlPhoto || this.myJob.urlPhoto === ""){
       this.dialog.presentAlert('Add a photo of your work');
     }else{
       this.myJob.hasCompleted = true;
+      this.update();
     }
   }
 
