@@ -7,13 +7,13 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div *ngIf="!isAutorized" class="elevation-content">
+  <div *ngIf="isAutorized === 'false'" class="elevation-content">
     <div class="content-title">
       <b>{{'USER_BLOCK' | translate }}</b><br/>{{name}}
       <p>{{'AWAIT' | translate}}</p>
     </div>
   </div>
-  <div *ngIf="isAutorized" class="elevation-content">
+  <div *ngIf="isAutorized === 'true'" class="elevation-content">
     <div class="content-title">
       <b>{{'WELCOME' | translate }}</b><br/>{{name}}
     </div>

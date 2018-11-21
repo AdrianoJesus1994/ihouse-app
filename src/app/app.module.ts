@@ -43,11 +43,10 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, { mode: 'md' }),
-    // IonicStorageModule.forRoot({
-    //   name: 'ihouseservice',
-    //   driverOrder: ['sqlite', 'websql', 'indexeddb']
-    // }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: 'ihouseservice',
+      driverOrder: ['sqlite', 'websql', 'indexeddb']
+    }),
     AngularFireModule.initializeApp(FIREBASE_OPTIONS),
     AngularFireAuthModule,
     AngularFireDatabaseModule,

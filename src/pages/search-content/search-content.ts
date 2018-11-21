@@ -9,6 +9,7 @@ import { Job } from '../../interfaces/job';
 })
 export class SearchContentPage {
   job: Job;
+  view: boolean;
 
   constructor(navParams: NavParams) {
     this.job = navParams.data.job;

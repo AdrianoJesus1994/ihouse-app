@@ -6,6 +6,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Category } from '../../interfaces/category';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Dialog } from '../../providers/dialog/dialog';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ import { Dialog } from '../../providers/dialog/dialog';
 })
 export class HomePage {
   public name: string = "";
-  public isAutorized: boolean;
+  public isAutorized: string;
   public userData: UserInterface;
   public userID: string;
 
@@ -44,10 +45,6 @@ export class HomePage {
         this.userID = user.uid;
         if(this.userData == null){
           this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
-            this.storage.get('isAutorized').then((val)=>{
-              this.isAutorized = val ? val : userData.isAutorized;
-              this.storage.setItem('isAutorized', userData.isAutorized ? 'true' : 'false');
-            });
             this.userData = userData;
           });
         }

@@ -4,7 +4,7 @@
     <h3>No {{category.name}} jobs</h3>
   </ion-item>
   <div *ngIf="jobs">
-    <ion-card no-padding *ngFor="let service of jobs" >
+    <ion-card no-padding *ngFor="let service of jobs" (click)="onVerDatalhes(service)" >
       <img [src]="service.category.img"/>
       <div class="card-title">{{service.category.name}}</div>
       <div class="card-subtitle">$ {{service.category.value}}</div>

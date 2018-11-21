@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams, NavController, App, ModalController } from 'ionic-angular';
 
 import { Dialog } from '../../providers/dialog/dialog';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -15,7 +15,7 @@ export class SearchJobsListPage {
   jobs: Job[] = [];
   category: Category;
 
-  constructor(navParams: NavParams, private dialog: Dialog, private database: DatabaseProvider) {
+  constructor(navParams: NavParams, private dialog: Dialog, private database: DatabaseProvider, private modaCtrl: ModalController) {
     this.category = navParams.data;
     console.log(this.category);
     this.fetchJobs();
@@ -25,5 +25,9 @@ export class SearchJobsListPage {
       this.jobs = jobs;
       console.log(this.jobs);
     });
+  }
+
+  onVerDatalhes(job){
+    this.modaCtrl.create("MyJobContentPage", { job: job , view : false}).present();
   }
 }

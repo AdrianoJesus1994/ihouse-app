@@ -12,6 +12,7 @@ import { DatabaseProvider } from './../providers/database/database';
 import { Device } from '@ionic-native/device'
 import { TranslateService } from '@ngx-translate/core';
 import { ThrowStmt } from '@angular/compiler';
+import {Storage } from '@ionic/storage';
 
 export interface PageInterface {
   icon: string;
@@ -50,7 +51,8 @@ export class MyApp {
     public sanitizer: DomSanitizer,
     private device: Device,
     private config: Config,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: Storage
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -66,6 +68,7 @@ export class MyApp {
           this.database.getUserByID<UserInterface>(user.uid).subscribe((userData) => {
             this.photo = !!userData.urlPhoto ? this.sanitizer.bypassSecurityTrustResourceUrl(userData.urlPhoto) : 'assets/icon/photo.svg';
             console.log(user);
+            this.storage.set('isAutorized', userData.isAutorized ? 'true' : 'false');
             this.isAutorized = userData.isAutorized;
           });
 

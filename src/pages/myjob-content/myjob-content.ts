@@ -6,7 +6,7 @@ import { Dialog } from './../../providers/dialog/dialog';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Base64 } from '@ionic-native/base64';
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController } from 'ionic-angular';
+import { IonicPage, NavParams, NavController, ModalController, ViewController } from 'ionic-angular';
 import { Job } from '../../interfaces/job';
 
 @IonicPage()
@@ -16,9 +16,11 @@ import { Job } from '../../interfaces/job';
 })
 export class MyJobContentPage {
   myJob: Job;
+  view: boolean;
 
-  constructor(navParams: NavParams, private navCtrl: NavController, private base64: Base64,private auth: AuthProvider, private db: DatabaseProvider, private camera: Camera, private dialog: Dialog,private angularFireDB: AngularFireDatabase,) {
+  constructor(navParams: NavParams, private viewCtrl: ViewController, private navCtrl: NavController, private base64: Base64,private auth: AuthProvider, private db: DatabaseProvider, private camera: Camera, private dialog: Dialog,private angularFireDB: AngularFireDatabase,) {
     this.myJob = navParams.data.job;
+    this.view = navParams.data.view;
   }
 
   addPhoto(){
@@ -68,6 +70,10 @@ export class MyJobContentPage {
         }
       })
     });
+  }
+
+  back(){
+    this.viewCtrl.dismiss();
   }
 
 
