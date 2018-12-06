@@ -65,6 +65,12 @@ export class DatabaseProvider {
     ).valueChanges();
   }
 
+  getUserBySSN<T>(ssn: string): Observable<T[]>{
+    return this.db.list<T>('user', (res) =>
+      res.orderByChild('ssn').equalTo(ssn)
+    ).valueChanges();
+  }
+
   getEmployeeByID<T>(id: string): Observable<T> {
     return this.db.object<T>(`user/${id}`).valueChanges();
   }

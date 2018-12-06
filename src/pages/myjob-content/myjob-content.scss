@@ -4,7 +4,7 @@ page-myjob-content {
         width: 100%;
         background-color: color($colors, verde);
         .container {
-            height: 100%;
+            min-height: 100%;
             width: 100%;
             background-color: #fff;
         }

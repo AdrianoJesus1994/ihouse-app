@@ -9,5 +9,5 @@ export interface Job {
     timestamp: number,
     paid: boolean;
     hasCompleted: boolean;
-    urlPhoto?: string;
+    urlPhoto: string;
 }

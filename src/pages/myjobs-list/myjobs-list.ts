@@ -14,6 +14,7 @@ import { Job } from '../../interfaces/job';
 })
 export class MyjobsListPage {
   myJobs: Job[] = [];
+  userData: UserInterface;
 
   constructor(
     private navCtrl: NavController,
@@ -28,6 +29,7 @@ export class MyjobsListPage {
     this.auth.getUser().subscribe((user) => {
       if(user){
         this.database.getUserByID(user.uid).subscribe((u: UserInterface)=>{
+          this.userData = u;
           if(u.type == 'employer'){
             this.database.getJobsByEmployer<Job>(user.uid).subscribe((jobs) => {
               this.myJobs = jobs;
@@ -49,6 +51,6 @@ export class MyjobsListPage {
   }
 
   onVerDetalhes(job: Job): void {
-    this.navCtrl.push('MyJobContentPage', { job: job });
+    this.navCtrl.push('MyJobContentPage', { job: job, user: this.userData });
   }
 }
