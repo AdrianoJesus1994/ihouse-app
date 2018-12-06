@@ -5,7 +5,6 @@ import { IonicPage, NavParams, ModalController } from 'ionic-angular';
 import { Dialog } from '../../providers/dialog/dialog';
 import { DatabaseProvider } from '../../providers/database/database';
 import { Category } from '../../interfaces/category';
-import { Job } from '../../interfaces/job';
 import { User } from 'firebase';
 import { UserInterface } from '../../interfaces/user';
 
